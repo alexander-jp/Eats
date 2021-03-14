@@ -19,7 +19,7 @@ class AppModuleCommuns (private val application: Application) {
 
     @Provides
     @Singleton
-    private fun provideSharedPref(app: Application): SharedPreferences {
+    fun provideSharedPref(app: Application): SharedPreferences {
         return PreferenceManager.getDefaultSharedPreferences(app)
     }
 }

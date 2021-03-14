@@ -8,9 +8,10 @@ import javax.inject.Singleton
  * Created by Alexander Juárez with Date 13/03/2021
  * @author Alexander Juárez
  */
-
+@Singleton
 @Component(modules = [AppModuleNetwork::class, AppModuleCommuns::class])
 interface ApplicationComponent {
+
 
     fun inject(app : MainActivity)
 }
