@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">eats</string>
+    <string name="app_name">Eats</string>
+    <string name="name_progressAV">BallPulseIndicator</string>
 </resources>
