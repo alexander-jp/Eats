@@ -2,6 +2,7 @@ package com.mx.mundet.eats.di
 
 import android.app.Application
 import android.content.Context
+import com.mx.mundet.eats.domain.api.PersonasSource
 import dagger.Module
 import dagger.Provides
 import okhttp3.Cache
@@ -9,15 +10,16 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @Module
-class AppModuleNetwork (private val application: Application) {
+class AppModuleNetwork (private val application: Application)  {
 
     @Provides
     @Singleton
-    fun provideContent(): Context {
+    fun provideContext () : Context{
         return application
     }
 
@@ -45,14 +47,14 @@ class AppModuleNetwork (private val application: Application) {
 
     @Provides
     @Singleton
-    private inline fun <reified T> provideRetrofitSource(urlBase:String,okHttpClient: OkHttpClient): T {
+    fun provideRetrofitSource(urlBase:String,okHttpClient: OkHttpClient) : PersonasSource {
         val retrofit = Retrofit.Builder()
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                //.addConverterFactory(MoshiConverterFactory.create())
-                .client(okHttpClient)
-                .baseUrl(urlBase)
-                .build()
-        return retrofit.create(T::class.java)
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(okHttpClient)
+            .baseUrl(urlBase)
+            .build()
+        return retrofit.create(PersonasSource::class.java)
     }
 
 

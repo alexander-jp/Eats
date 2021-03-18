@@ -1,15 +1,13 @@
-package com.mx.mundet.eats.view.base
+package com.mx.mundet.eats.ui.base
 
 import android.os.Bundle
 import android.view.Gravity
-import android.view.View
 import android.view.ViewGroup
 import android.widget.RelativeLayout
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import com.mx.mundet.eats.R
 import com.mx.mundet.eats.utils.ViewGroupUtils
-import com.mx.mundet.eats.view.ext.colorAttr
+import com.mx.mundet.eats.ui.ext.colorAttr
 import com.wang.avi.AVLoadingIndicatorView
 
 /**

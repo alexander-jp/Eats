@@ -1,4 +1,4 @@
-package com.mx.mundet.eats.view.main
+package com.mx.mundet.eats.ui.mvp.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

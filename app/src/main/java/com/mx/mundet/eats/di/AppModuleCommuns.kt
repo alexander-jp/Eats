@@ -13,7 +13,7 @@ class AppModuleCommuns (private val application: Application) {
 
     @Provides
     @Singleton
-    fun provideContent(): Context {
+    fun provideContext () : Context{
         return application
     }
 
