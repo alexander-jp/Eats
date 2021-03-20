@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <group
+        android:checkableBehavior="single"
+        android:id="@+id/group_divider1"
+        android:menuCategory="secondary"
+        android:orderInCategory="1">
+        <item
+            android:id="@+id/item_home"
+            android:checkable="true"
+            android:checked="true"
+            android:icon="@drawable/ic_baseline_storefront_24"
+            android:title="@string/text_title_item_home"
+            app:showAsAction="always" />
+
+        <item
+            android:id="@+id/item_all"
+            android:icon="@drawable/ic_baseline_ballot_24"
+            android:title="Todos"
+            app:showAsAction="always" />
+
+        <item
+            android:id="@+id/item_home_recent"
+            android:icon="@drawable/ic_round_storage_24"
+            android:title="Recientes"
+            app:showAsAction="always" />
+
+        <item
+            android:id="@+id/item_settings"
+            android:icon="@drawable/ic_baseline_settings_24"
+            android:title="Ajustes"
+            app:showAsAction="always" />
+    </group>
+
+    <group
+        android:menuCategory="container"
+        android:id="@+id/group_divider_2"
+        android:orderInCategory="2">
+
+        <item android:id="@+id/item_home3"
+            android:title="@string/text_invitar_amigos"
+            android:icon="@drawable/ic_round_person_add_24"
+            app:showAsAction="ifRoom"/>
+
+        <item
+            android:id="@+id/item_home2"
+            android:icon="@drawable/ic_round_help_outline_24"
+            android:title="@string/text_preguntas_frecuentes"
+            app:showAsAction="ifRoom" />
+
+
+    </group>
+
+</menu>

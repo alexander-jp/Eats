@@ -9,5 +9,5 @@ interface BaseView<out T : BasePresenter<*>> {
 
     fun showError(error: Throwable)
 
-    val presenter: T
+    //val presenter: T
 }

@@ -2,7 +2,9 @@ package com.mx.mundet.eats
 
 import android.app.Application
 import com.mx.mundet.eats.di.*
-import dagger.internal.DaggerCollections
+import com.mx.mundet.eats.di.component.ApplicationComponent
+import com.mx.mundet.eats.di.component.DaggerApplicationComponent
+import com.mx.mundet.eats.di.module.*
 
 /**
  * Created by Alexander Juárez with Date 13/03/2021
@@ -15,17 +17,17 @@ open class App : Application() {
         initializeComponent()
     }
 
-
-    open fun initializeComponent() : ApplicationComponent{
-        return DaggerApplicationComponent.factory().create(applicationContext)
+    open fun initializeComponent(): ApplicationComponent {
+        return DaggerApplicationComponent.builder()
+            .applicationModule(ApplicationModule(this))
+            .appModuleCommuns(AppModuleCommuns(this))
+            .applicationModuleLogin(ApplicationModuleLogin())
+            .appModuleNetwork(AppModuleNetwork())
+            .applicationModuleRegisterUser(ApplicationModuleRegisterUser())
+            .build()
     }
-//    override fun onCreate() {
-//        super.onCreate()
-//        component = DaggerApplicationComponent.builder()
-//            .applicationModule(ApplicationModule(this))
-//            .appModuleCommuns(AppModuleCommuns(this))
-//            .applicationModuleRepository(ApplicationModuleRepository())
-//            .build()
+//    open fun initializeComponent() : ApplicationComponent{
+//        return DaggerApplicationComponent.factory().create(applicationContext)
 //    }
 
 }

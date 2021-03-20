@@ -1,4 +1,4 @@
-package com.mx.mundet.eats.di
+package com.mx.mundet.eats.di.scope
 
 import javax.inject.Scope
 

@@ -2,17 +2,25 @@
     <!-- Base application theme. -->
     <style name="Theme.Eats" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_200</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorPrimary">@color/red_500</item>
+        <item name="colorPrimaryVariant">@color/red_700</item>
         <item name="colorOnPrimary">@color/black</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_200</item>
+        <item name="colorSecondary">@color/blue_200</item>
+        <item name="colorSecondaryVariant">@color/blue_200</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
-        <!-- Customize your theme here. -->
 
+        <!-- shape -->
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.Eats.Large.Rounded</item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.Eats.Large.Rounded</item>
+        <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.Eats.Large.Rounded</item>
+
+
+        <!-- Customize your theme here. -->
         <item name="colorDotProgress">@color/white</item>
+        <item name="colorTheme">@color/black</item>
+        <item name="colorTextTheme">@color/white</item>
     </style>
 </resources>

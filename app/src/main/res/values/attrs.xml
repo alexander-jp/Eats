@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <attr name="colorDotProgress" format="color"/>
+    <attr name="colorTheme" format="color"/>
+    <attr name="colorTextTheme" format="color"/>
 </resources>
