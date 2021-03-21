@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar_show_image"
+        app:navigationIcon="@drawable/ic_round_close_24"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+    <com.jsibbold.zoomage.ZoomageView
+        android:id="@+id/img_image_account"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/cuenta"
+        android:layout_below="@id/toolbar_show_image"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:zoomage_doubleTapToZoom="true"
+        app:zoomage_restrictBounds="true"
+        app:zoomage_translatable="false" />
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginVertical="20dp"
+        android:textAllCaps="false"
+        android:visibility="gone"
+        android:paddingHorizontal="20dp"
+        android:layout_marginHorizontal="30dp"
+        android:text="@string/text_ready"
+        android:textSize="18sp"
+        app:backgroundTint="@color/blue_500" />
+
+</RelativeLayout>

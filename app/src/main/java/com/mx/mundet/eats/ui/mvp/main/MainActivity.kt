@@ -7,11 +7,14 @@ import android.view.Gravity
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.GravityCompat
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.appbar.MaterialToolbar
 import com.mx.mundet.eats.R
 import com.mx.mundet.eats.databinding.ActivityMainBinding
 import com.mx.mundet.eats.ui.ext.addFragment
 import com.mx.mundet.eats.ui.ext.showToast
+import com.mx.mundet.eats.ui.mvp.FragmentSetting
 import com.mx.mundet.eats.ui.mvp.home.FragmentHome
 
 class MainActivity : AppCompatActivity() {
@@ -45,7 +48,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onResume() {
-        addFragment(FragmentHome.newInstance(), R.id.content_main, false)
+        supportFragmentManager.findFragmentById(R.id.content_main)?.findNavController()?.navigate(R.id.action_global_fragmentHome)
+        //addFragment(FragmentHome.newInstance(), R.id.content_main, false)
         super.onResume()
     }
 
@@ -65,7 +69,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.item_home-> addFragment(FragmentHome.newInstance(), R.id.content_main, false)
                 R.id.item_all -> showToast("All")
                 R.id.item_home_recent -> showToast("Recent")
-                R.id.item_settings-> showToast("Settings")
+                R.id.item_settings-> addFragment(FragmentSetting.newInstance(), R.id.content_main, false)
             }
             _binding.drawerLayout.closeDrawer(GravityCompat.START)
             return@setNavigationItemSelectedListener true

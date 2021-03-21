@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/fragmentHome">
+
+    <fragment
+        android:id="@+id/fragmentCamera"
+        android:name="com.mx.mundet.eats.ui.mvp.camera.FragmentCamera"
+        android:label="FragmentCamera"
+        tools:layout="@layout/fragment_new_camera" />
+
+    <fragment
+        android:id="@+id/fragmentImage"
+        android:name="com.mx.mundet.eats.ui.mvp.camera.FragmentImage"
+        android:label="FragmentImage"
+        tools:layout="@layout/fragment_show_image" />
+
+    <fragment
+        android:id="@+id/fragmentHome"
+        tools:layout="@layout/fragment_home"
+        android:name="com.mx.mundet.eats.ui.mvp.home.FragmentHome"
+        android:label="FragmentHome" />
+
+    <fragment
+        android:id="@+id/fragmentSetting"
+        tools:layout="@layout/fragment_setting"
+        android:name="com.mx.mundet.eats.ui.mvp.FragmentSetting"
+        android:label="FragmentSetting" />
+
+    <activity
+        android:id="@+id/activityDetailUser"
+        tools:layout="@layout/activity_detail_user"
+        android:name="com.mx.mundet.eats.ui.mvp.detailUser.ActivityDetailUser"
+        android:label="ActivityDetailUser" />
+
+    <activity
+        android:id="@+id/registerUserActivity"
+        tools:layout="@layout/activity_register_user"
+        android:name="com.mx.mundet.eats.ui.mvp.registerUser.RegisterUserActivity"
+        android:label="RegisterUserActivity" />
+
+    <action
+        android:id="@+id/action_global_fragmentImage"
+        app:launchSingleTop="true"
+        app:enterAnim="@anim/fragment_fade_enter"
+        app:exitAnim="@anim/fragment_fade_exit"
+        app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+        app:popExitAnim="@anim/nav_default_pop_exit_anim"
+        app:destination="@id/fragmentImage"
+        app:popUpTo="@id/fragmentCamera"
+        app:popUpToInclusive="true"
+        />
+
+    <action
+        android:id="@+id/action_global_fragmentCamera"
+        app:launchSingleTop="true"
+        app:popUpTo="@id/fragmentImage"
+        app:popUpToInclusive="true"
+        app:enterAnim="@anim/fragment_fade_enter"
+        app:exitAnim="@anim/fragment_fade_exit"
+        app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+        app:popExitAnim="@anim/nav_default_pop_exit_anim"
+        app:destination="@id/fragmentCamera" />
+
+
+    <action android:id="@+id/action_global_fragmentHome"
+        app:destination="@id/fragmentHome" />
+
+    <action android:id="@+id/action_global_fragmentSetting"
+        app:destination="@id/fragmentSetting"/>
+
+
+</navigation>

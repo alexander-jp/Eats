@@ -1,10 +1,18 @@
 package com.mx.mundet.eats.ui.ext
 
 import android.content.Intent
+import android.transition.Fade
+import android.transition.Slide
+import android.transition.Transition
 import android.util.TypedValue
+import android.view.Gravity
+import android.view.animation.DecelerateInterpolator
 import android.widget.Toast
 import androidx.annotation.AttrRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityOptionsCompat
+import androidx.core.view.GravityCompat
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
@@ -44,7 +52,13 @@ fun <T> AppCompatActivity.changeActivity(clazz: Class<T>) {
 
 fun <T> Fragment.changeActivity(clazz: Class<T>) {
     val intent = Intent(activity, clazz)
+    //val transition : Transition = Slide(Gravity.RIGHT)
+    //transition.duration = 1000
+    //transition.interpolator = DecelerateInterpolator()
+    //activity?.window?.exitTransition = transition
+    //startActivity(intent, ActivityOptionsCompat.makeSceneTransitionAnimation(requireActivity()).toBundle());
     startActivity(intent)
+
 }
 
 fun <T> singleLiveData(): MutableLiveData<T> {
@@ -77,4 +91,16 @@ fun Fragment.addFragment(fragment: Fragment, containerId: Int, addBackStack: Boo
     } else {
         frag.replace(containerId, fragment).commitAllowingStateLoss()
     }
+}
+
+fun AppCompatActivity.addAlertFragment(alertDialog: DialogFragment, tag: String) {
+    val fragmentTransaction = supportFragmentManager.beginTransaction()
+    fragmentTransaction.add(alertDialog, tag)
+    fragmentTransaction.commitAllowingStateLoss()
+}
+
+fun Fragment.addAlertFragment(alertDialog: DialogFragment, tag: String) {
+    val fragmentTransaction = childFragmentManager.beginTransaction()
+    fragmentTransaction.add(alertDialog, tag)
+    fragmentTransaction.commitAllowingStateLoss()
 }

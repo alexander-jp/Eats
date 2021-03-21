@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.mx.mundet.eats">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
         android:name=".App"
@@ -18,7 +22,19 @@
         <activity android:name=".ui.mvp.registerUser.RegisterUserActivity"
             android:screenOrientation="portrait"/>
 
-        <activity android:name=".ui.mvp.main.MainActivity">
+        <activity android:name=".ui.mvp.login.LoginActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".ui.mvp.camera.ActivityCamera"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".ui.mvp.detailUser.ActivityDetailUser"
+            android:screenOrientation="portrait"/>
+
+        <!-- TODO Activity launch to initialize the app-->
+
+        <activity android:name=".ui.mvp.main.MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,11 +42,6 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".ui.mvp.login.LoginActivity"
-            android:screenOrientation="portrait">
-
-        </activity>
     </application>
 
 </manifest>

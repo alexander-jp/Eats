@@ -5,7 +5,7 @@ import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mx.mundet.eats.App
 import com.mx.mundet.eats.bd.Entity.PersonasEntity
-import com.mx.mundet.eats.databinding.LoginActivityBinding
+import com.mx.mundet.eats.databinding.ActivityLoginBinding
 import com.mx.mundet.eats.domain.model.PersonResponseBean
 import com.mx.mundet.eats.domain.repository.LoginRepositoryImpl
 import com.mx.mundet.eats.ui.adapter.AdapterListPerson
@@ -28,8 +28,7 @@ import javax.inject.Inject
 
 class LoginActivity : BaseActivity(), LoginContract.View {
 
-    private lateinit var _binding: LoginActivityBinding
-
+    private lateinit var _binding: ActivityLoginBinding
     @Inject
     lateinit var lPresenter: LoginContract.Presenter
 
@@ -39,7 +38,7 @@ class LoginActivity : BaseActivity(), LoginContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         (application as App).appComponent.inject(this)
         super.onCreate(savedInstanceState)
-        _binding = LoginActivityBinding.inflate(layoutInflater)
+        _binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(_binding.root)
         initProgress(_binding.root)
 

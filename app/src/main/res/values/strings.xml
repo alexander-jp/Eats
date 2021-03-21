@@ -8,6 +8,7 @@
     <string name="field_length_30">Debe ser mayor a 30 caracteres</string>
     <string name="field_length_6">Debe ser mayor a 6 caracteres</string>
     <string name="onlyNumber">Solo se aceptan caracteres numericos</string>
+    <string name="text_add_person">Agregar personas</string>
 
     <!-- TODO Navigation Drawer -->
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -17,4 +18,5 @@
     <string name="text_invitar_amigos">Invitar Amigos</string>
     <string name="text_preguntas_frecuentes">Preguntas frecuentes</string>
     <string name="text_context_description">context description</string>
+    <string name="text_ready">Listo</string>
 </resources>
