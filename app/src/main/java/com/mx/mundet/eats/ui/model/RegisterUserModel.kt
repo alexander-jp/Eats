@@ -32,8 +32,8 @@ class RegisterUserModel {
             userTimer.value = field
         }
 
-    val userName = MutableLiveData<String>()
-    val userDescription = MutableLiveData<String>()
-    val userDateBirth = MutableLiveData<String>()
-    val userTimer = MutableLiveData<String>()
+    val userName = MutableLiveData("")
+    val userDescription = MutableLiveData("")
+    val userDateBirth = MutableLiveData("")
+    val userTimer = MutableLiveData("")
 }

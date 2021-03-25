@@ -44,32 +44,52 @@
     <action
         android:id="@+id/action_global_fragmentImage"
         app:launchSingleTop="true"
-        app:enterAnim="@anim/fragment_fade_enter"
-        app:exitAnim="@anim/fragment_fade_exit"
-        app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-        app:popExitAnim="@anim/nav_default_pop_exit_anim"
+        app:enterAnim="@android:anim/fade_in"
+        app:exitAnim="@android:anim/fade_out"
+        app:popEnterAnim="@android:anim/fade_in"
+        app:popExitAnim="@android:anim/fade_out"
         app:destination="@id/fragmentImage"
-        app:popUpTo="@id/fragmentCamera"
-        app:popUpToInclusive="true"
         />
 
     <action
         android:id="@+id/action_global_fragmentCamera"
+        app:destination="@id/fragmentCamera"
+        app:enterAnim="@android:anim/fade_in"
+        app:exitAnim="@android:anim/fade_out"
         app:launchSingleTop="true"
-        app:popUpTo="@id/fragmentImage"
-        app:popUpToInclusive="true"
-        app:enterAnim="@anim/fragment_fade_enter"
-        app:exitAnim="@anim/fragment_fade_exit"
-        app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-        app:popExitAnim="@anim/nav_default_pop_exit_anim"
-        app:destination="@id/fragmentCamera" />
+        app:popEnterAnim="@android:anim/fade_in"
+        app:popExitAnim="@android:anim/fade_out"
+        app:popUpTo="@id/registerUserActivity" />
 
 
     <action android:id="@+id/action_global_fragmentHome"
+        app:launchSingleTop="true"
         app:destination="@id/fragmentHome" />
 
     <action android:id="@+id/action_global_fragmentSetting"
-        app:destination="@id/fragmentSetting"/>
+        app:launchSingleTop="true"
+        app:destination="@id/fragmentSetting" />
+
+    <action
+        android:id="@+id/action_global_fragmentHome_to_activityDetailUser"
+        app:destination="@id/activityDetailUser"
+        app:enterAnim="@android:anim/slide_in_left"
+        app:exitAnim="@android:anim/slide_out_right"
+        app:launchSingleTop="true"
+        app:popEnterAnim="@android:anim/slide_in_left"
+        app:popExitAnim="@android:anim/slide_out_right"
+        app:popUpTo="@id/fragmentHome" />
+
+    <action
+        android:id="@+id/action_global_fragmentHome_to_activityRegisterUser"
+        app:destination="@id/registerUserActivity"
+        app:enterAnim="@android:anim/slide_in_left"
+        app:exitAnim="@android:anim/slide_out_right"
+        app:launchSingleTop="true"
+        app:popEnterAnim="@android:anim/slide_in_left"
+        app:popExitAnim="@android:anim/slide_out_right"
+        app:popUpTo="@id/fragmentHome" />
+
 
 
 </navigation>

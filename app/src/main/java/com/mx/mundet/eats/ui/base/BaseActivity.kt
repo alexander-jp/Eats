@@ -18,10 +18,10 @@ import com.wang.avi.AVLoadingIndicatorView
 open class BaseActivity : AppCompatActivity() {
     private var progress: AVLoadingIndicatorView? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
+//    override fun onCreate(savedInstanceState: Bundle?) {
+//        super.onCreate(savedInstanceState)
+//
+//    }
 
     fun initProgress(view: ViewGroup?) {
         view?.let {

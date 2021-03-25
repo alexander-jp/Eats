@@ -5,6 +5,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.util.Patterns
+import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.ContextCompat
 import androidx.core.widget.doOnTextChanged
 import com.google.android.material.textfield.TextInputEditText
@@ -14,95 +15,75 @@ import java.util.regex.Pattern
 
 object InputUtils {
 
-
-    fun TextInputEditText.validateReactive(textInputLayout: TextInputLayout) : Boolean  {
+    fun TextInputEditText.validate(textInputLayout : TextInputLayout, validate : (String) -> Unit){
         this.doOnTextChanged { text, _, _, count ->
             textInputLayout.isErrorEnabled = text?.isEmpty()!!
             textInputLayout.error = if (text.isEmpty()) context.getString(R.string.field_required) else null
             if (tag is String) {
-                Log.e("TAG", "validateReactive: $tag")
                 when (tag) {
-                    "email" -> textEmail(text.toString(), textInputLayout, context)
-                    "textArea" -> textMultiline(text.length, textInputLayout, context)
-                    "text" -> textLine(text.toString(), textInputLayout, context)
-                    "password" -> textPassword(text.toString(), textInputLayout, context)
-                    else -> false
+                    "email" -> validate.invoke(textEmail(text.toString(), textInputLayout, context).toString())
+                    "textArea"-> validate.invoke(textMultiline(text.toString(), count, textInputLayout, context).toString())
+                    "text" -> validate.invoke(textLine(text.toString(), textInputLayout, context).toString())
+                    "password"-> validate.invoke(textPassword(text.toString(), textInputLayout, context).toString())
                 }
             }
         }
-        return false
     }
 
-    fun TextInputLayout.validateReactive(text: String): Boolean {
-        error = if (text.isEmpty()) context.getString(R.string.field_required) else null
-        isErrorEnabled = text.isEmpty()
-        if (text.isNotEmpty()) {
-            if (tag is String) {
-                return when (tag) {
-                    "email" -> textEmail(text, this, context)
-                    "textArea" -> textMultiline(text.length, this, context)
-                    "text" -> textLine(text, this, context)
-                    "password" -> textPassword(text, this, context)
-                    else -> false
-                }
-            }
-        }
-        return false
-    }
 
-    fun textMultiline(count: Int, textInputLayout: TextInputLayout, ctx: Context): Boolean {
-        return when (count) {
+    fun textMultiline(text: String, count: Int, textInputLayout: TextInputLayout, ctx: Context): String? {
+        return when (text.length) {
             in 1..30 -> {
                 textInputLayout.error = ctx.getString(R.string.field_length_30)
-                false
+                null
             }
             0 -> {
                 textInputLayout.error = ctx.getString(R.string.field_required)
-                false
+                null
             }
             else -> {
                 textInputLayout.error = null
-                true
+                text
             }
         }
     }
 
-    fun textLine(text: String, textInputLayout: TextInputLayout, ctx: Context): Boolean {
+    fun textLine(text: String, textInputLayout: TextInputLayout, ctx: Context): String? {
         return when (text.isNotEmpty()) {
             true -> {
                 textInputLayout.error = null
-                true
+                text
             }
             false -> {
                 textInputLayout.error = ctx.getString(R.string.field_required)
-                false
+                null
             }
         }
     }
 
-    fun textEmail(text: String, textInputLayout: TextInputLayout, ctx: Context): Boolean {
+    fun textEmail(text: String, textInputLayout: TextInputLayout, ctx: Context): String? {
         return when (Patterns.EMAIL_ADDRESS.matcher(text).matches()) {
             true -> {
                 textInputLayout.error = null
-                true
+                text
             }
             false -> {
                 textInputLayout.error = ctx.getString(R.string.email_not_formed)
-                false
+                null
             }
         }
 
     }
 
-    fun textPassword(text: String, textInputLayout: TextInputLayout, ctx: Context): Boolean {
+    fun textPassword(text: String, textInputLayout: TextInputLayout, ctx: Context): String? {
         return when (text.length >= 6) {
             true -> {
                 textInputLayout.error = null
-                true
+                null
             }
             false -> {
                 textInputLayout.error = ctx.getString(R.string.field_length_6)
-                false
+                text
             }
         }
 
@@ -116,7 +97,10 @@ object InputUtils {
     fun isValidPassword(text: String): Boolean = text.length >= 6
 
     fun isValidLetters(text: String): Boolean {
-        return text.isNotEmpty()
+        return when(text.isNotEmpty()){
+            true -> true
+            false -> false
+        }
     }
 
     fun isValidLettersTextArea(text: String): Boolean {

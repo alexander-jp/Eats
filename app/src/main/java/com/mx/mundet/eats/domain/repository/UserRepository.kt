@@ -10,19 +10,20 @@ import com.mx.mundet.eats.utils.NetworkUtils
 import io.reactivex.Single
 import javax.inject.Inject
 
-interface LoginRepository {
+interface UserRepository {
 
     fun obtenerListaPersonas(): Single<List<PersonResponseBean>>
     fun obtenerListaPersonasBD(): Single<List<PersonasEntity>>
     fun insertPersonBD(request : PersonasEntity) : Single<PersonasEntity>
+    fun getPeople(userId : Int) : Single<PersonasEntity>
 }
 
 
-class LoginRepositoryImpl @Inject constructor(
+class UserRepositoryImpl @Inject constructor(
     private val source: PersonasSource,
     private val database: AppRoomDatabase,
     private val context: Context
-) : LoginRepository {
+) : UserRepository {
 
     override fun obtenerListaPersonas(): Single<List<PersonResponseBean>> {
         return source.getAllPersonas()
@@ -46,6 +47,13 @@ class LoginRepositoryImpl @Inject constructor(
         return Single.create {
             val p = database.personasDao().insert(request)
             it.onSuccess(request)
+        }
+    }
+
+    override fun getPeople(userId: Int): Single<PersonasEntity> {
+        return Single.create {
+            val p = database.personasDao().queryPersona(userId)
+            it.onSuccess(p)
         }
     }
 

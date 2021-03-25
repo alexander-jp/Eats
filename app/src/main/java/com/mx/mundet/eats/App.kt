@@ -21,9 +21,9 @@ open class App : Application() {
         return DaggerApplicationComponent.builder()
             .applicationModule(ApplicationModule(this))
             .appModuleCommuns(AppModuleCommuns(this))
-            .applicationModuleLogin(ApplicationModuleLogin())
+            .applicationModulePresenter(ApplicationModulePresenter())
             .appModuleNetwork(AppModuleNetwork())
-            .applicationModuleRegisterUser(ApplicationModuleRegisterUser())
+            .applicationModuleRepository(ApplicationModuleRepository())
             .build()
     }
 //    open fun initializeComponent() : ApplicationComponent{

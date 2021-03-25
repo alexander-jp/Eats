@@ -3,20 +3,21 @@ package com.mx.mundet.eats.ui.mvp.home
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.view.Window
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.transition.platform.MaterialContainerTransformSharedElementCallback
 import com.mx.mundet.eats.App
 import com.mx.mundet.eats.R
 import com.mx.mundet.eats.bd.Entity.PersonasEntity
 import com.mx.mundet.eats.databinding.FragmentHomeBinding
 import com.mx.mundet.eats.ui.adapter.AdapterListPerson
 import com.mx.mundet.eats.ui.base.BaseFragment
-import com.mx.mundet.eats.ui.ext.changeActivity
-import com.mx.mundet.eats.ui.mvp.registerUser.RegisterUserActivity
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import com.mx.mundet.eats.ui.interfaces.OnItemClickListener
+import com.mx.mundet.eats.ui.message.MsgUserData
+import com.mx.mundet.eats.ui.message.MsgUserDataRefresh
+import com.mx.mundet.eats.ui.mvp.detailUser.ActivityDetailUser
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import javax.inject.Inject
 
 
@@ -27,7 +28,7 @@ import javax.inject.Inject
 
 class FragmentHome : BaseFragment(R.layout.fragment_home), HomeContract.View {
 
-    private var _binding: FragmentHomeBinding? = null
+    private lateinit var _binding: FragmentHomeBinding
 
     @Inject
     lateinit var hPresenter: HomeContract.Presenter
@@ -38,6 +39,7 @@ class FragmentHome : BaseFragment(R.layout.fragment_home), HomeContract.View {
         (activity?.application as App).appComponent.inject(this)
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentHomeBinding.bind(view)
+        //EventBus.getDefault().register(this)
 
         initSettings()
         initListener()
@@ -46,22 +48,27 @@ class FragmentHome : BaseFragment(R.layout.fragment_home), HomeContract.View {
 
     override fun onResume() {
         hPresenter.subscribe(this)
-        CoroutineScope(Dispatchers.IO).launch {
-            hPresenter.obtenerListaPersonas()
-        }
+        hPresenter.obtenerListaPersonas()
         super.onResume()
     }
 
     private fun initSettings(){
         initProgress(_binding?.root)
-        setTitleToobar(resources.getString(R.string.text_title_item_home))
+        //(activity as MainActivity).supportActionBar?.title = getString(R.string.text_title_item_home)
+        //setTitleToobar(resources.getString(R.string.text_title_item_home))
         _binding?.rvListHome?.setHasFixedSize(true)
         _binding?.rvListHome?.layoutManager = LinearLayoutManager(activity)
     }
 
     private fun initListener() {
         _binding?.fabAddPersonHome?.setOnClickListener {
-            changeActivity(RegisterUserActivity::class.java)
+            findNavController().navigate(R.id.action_global_fragmentHome_to_activityRegisterUser)
+        }
+        adapter.onClick = object : OnItemClickListener{
+            override fun OnItemClickListener(view: View, position: Int) {
+                EventBus.getDefault().postSticky(MsgUserData(adapter.lista[position]))
+                findNavController().navigate(R.id.action_global_fragmentHome_to_activityDetailUser)
+            }
         }
     }
 
@@ -77,6 +84,7 @@ class FragmentHome : BaseFragment(R.layout.fragment_home), HomeContract.View {
 
     override fun onDestroyView() {
         hPresenter.unSubscribe()
+        //EventBus.getDefault().unregister(this)
         super.onDestroyView()
     }
 

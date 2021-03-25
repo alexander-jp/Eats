@@ -1,23 +1,30 @@
 package com.mx.mundet.eats.ui.mvp.registerUser
 
 import android.content.Intent
+import android.media.MediaActionSound
 import android.os.Bundle
-import android.transition.Fade
 import android.util.Log
-import android.view.Gravity
+import android.view.View
 import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.navigation.fragment.findNavController
 import com.mx.mundet.eats.App
 import com.mx.mundet.eats.R
 import com.mx.mundet.eats.bd.Entity.PersonasEntity
 import com.mx.mundet.eats.databinding.ActivityRegisterUserBinding
 import com.mx.mundet.eats.ui.base.BaseActivity
-import com.mx.mundet.eats.ui.ext.changeActivity
+import com.mx.mundet.eats.ui.dialog.DialogMaterialCalendar
+import com.mx.mundet.eats.ui.dialog.DialogMaterialTimer
+import com.mx.mundet.eats.ui.ext.addAlertFragment
+import com.mx.mundet.eats.ui.ext.showSnackBar
 import com.mx.mundet.eats.ui.ext.showToast
 import com.mx.mundet.eats.ui.ext.singleLiveData
 import com.mx.mundet.eats.ui.model.RegisterUserModel
 import com.mx.mundet.eats.ui.mvp.camera.ActivityCamera
+import com.mx.mundet.eats.utils.InputUtils
+import com.mx.mundet.eats.utils.InputUtils.validate
 import javax.inject.Inject
 
 class RegisterUserActivity : BaseActivity(), RegisterUserContract.View {
@@ -26,80 +33,113 @@ class RegisterUserActivity : BaseActivity(), RegisterUserContract.View {
     @Inject
     lateinit var rPresenter : RegisterUserContract.Presenter
 
-    private val _registerUserMutable = singleLiveData<RegisterUserModel>()
-    val registerUserLiveData: LiveData<RegisterUserModel> = _registerUserMutable
-    val registerUser by lazy { RegisterUserModel() }
-    val valid: MediatorLiveData<Boolean> by lazy { MediatorLiveData<Boolean>() }
+    private val _registerUserMutable : MutableLiveData<RegisterUserModel> by lazy { MutableLiveData<RegisterUserModel>() }
+    private val registerUserLiveData: LiveData<RegisterUserModel> = _registerUserMutable
+    private val registerUser by lazy { RegisterUserModel() }
+    private val valid : MediatorLiveData<Boolean> by lazy { MediatorLiveData<Boolean>() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         (application as App).appComponent.inject(this)
         super.onCreate(savedInstanceState)
         _binding = ActivityRegisterUserBinding.inflate(layoutInflater)
         setContentView(_binding.root)
-        //overridePendingTransition(R.anim.enter_activity, R.anim.exit_activity)
-        //setupWindowAnimations()
 
         initSettings()
+        initObservers()
         initListeners()
 
     }
 
-//    private fun setupWindowAnimations() {
-//        val fade = Fade(Gravity.LEFT)
-//        fade.setDuration(1000)
-//        window.enterTransition = fade
-//    }
-
     private fun initSettings(){
-//        overridePendingTransition(R.anim.enter_activity, R.anim.exit_activity)
         setSupportActionBar(_binding.toolbarAddUser)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         _binding.toolbarAddUser.title = getString(R.string.text_add_person)
         _binding.toolbarAddUser.setNavigationIcon(R.drawable.ic_round_close_24)
     }
+
     override fun onResume() {
         rPresenter.subscribe(this)
         super.onResume()
     }
 
-    init {
-        valid.apply {
-            addSource(registerUser.userName) { _registerUserMutable.value = registerUser}
-        }
+    private fun initObservers(){
+
+//        valid.apply {
+//            addSource(registerUser.userName){_registerUserMutable.value = registerUser}
+//            addSource(registerUser.userDescription){_registerUserMutable.value = registerUser}
+//        }
+
+        registerUserLiveData.observe(this, {
+//            Log.e(TAG, "initObservers 0: ${it.userName.value}")
+//            Log.e(TAG, "initObservers 1: ${it.userDescription.value}")
+//
+//            Log.e(TAG, "initObservers 3: ${InputUtils.isValidLetters(it.userName.value?.trim().toString())}")
+//            Log.e(TAG, "initObservers 4: ${InputUtils.isValidLettersTextArea(it.userDescription.value?.trim().toString())}")
+
+            _binding.btnSaveUser.isEnabled = InputUtils.isValidEmail(it.userName.value.toString()) &&
+                    InputUtils.isValidLettersTextArea(it.userDescription.value.toString()) &&
+                    InputUtils.isValidLetters(it.userDateBirth.value.toString()) &&
+                    InputUtils.isValidLetters(it.userTimer.value.toString())
+
+//            Log.e(TAG, "initObservers valid value: ${valid.value}")
+//            valid.value?.let { _binding.btnSaveUser.isEnabled = it }
+        })
     }
 
-
     private fun initListeners(){
-
-        registerUserLiveData.observe(this) {
-            Log.e(TAG, "initListeners: ${it}")
-        }
 
         _binding.toolbarAddUser.setNavigationOnClickListener {
             finish()
         }
 
+        _binding.txtEditTextName.validate(_binding.txtInputLayoutName, validate = {
+            registerUser.name = it
+            _registerUserMutable.value = registerUser
+        })
 
-
-        _binding.txtEditTextName.doOnTextChanged { text, _, _, count ->
-            //_binding.txtEditTextName.validateReactive(_binding.txtInputLayoutDate)
-            registerUser.name = _binding.txtEditTextName.text?.trim().toString()
-
-
-        }
-
-       // _binding.btnSaveUser.isEnabled =
+        _binding.txtEditTextDescripcion.validate(_binding.txtInputLayoutDescripcion, validate = {
+            registerUser.description = it
+            _registerUserMutable.value = registerUser
+        })
 
         _binding.btnSaveUser.setOnClickListener {
-            val intent = Intent(this, ActivityCamera::class.java)
+            rPresenter.insertPerson(PersonasEntity(nombre = registerUser.name, edad = 23, sexo = "Hombre"))
+//            val intent = Intent(this, ActivityCamera::class.java)
+//            startActivity(intent)
             //intent.putExtra("nameFile", "nameFile")
-            startActivityForResult(intent, CODE_REQUEST_TAKE_PHOTO )
+            //startActivityForResult(intent, CODE_REQUEST_TAKE_PHOTO )
+        }
+
+        _binding.txtInputLayoutDate.setEndIconOnClickListener {
+            showDatePicker(View(this))
+        }
+
+        _binding.txtInputLayoutTime.setEndIconOnClickListener {
+            showTimePicker(View(this))
         }
     }
 
-    override fun finish() {
-        super.finish()
-        //overridePendingTransition(R.anim.enter_activity, R.anim.exit_activity)
+    fun showDatePicker(view: View){
+
+        val calendarAlert = DialogMaterialCalendar.newInstance().onCreateDialog()
+        calendarAlert.addOnPositiveButtonClickListener {
+            registerUser.dateBirth = calendarAlert.headerText
+            registerUser.userDateBirth.value = calendarAlert.headerText
+            _registerUserMutable.value = registerUser
+            _binding.txtEditTextDateUser.setText(registerUser.dateBirth)
+        }
+        addAlertFragment(calendarAlert, DialogMaterialCalendar.TAG!!)
+    }
+
+    fun showTimePicker(view: View){
+        val timerAlert = DialogMaterialTimer.newInstance().onCreateDialog()
+        timerAlert.addOnPositiveButtonClickListener {
+            registerUser.timerBirth = "${timerAlert.hour}:${timerAlert.minute}"
+            registerUser.userTimer.value =  "${timerAlert.hour}:${timerAlert.minute}"
+            _registerUserMutable.value =  registerUser
+            _binding.txtEditTextTimeUser.setText(registerUser.timerBirth)
+        }
+        addAlertFragment(timerAlert, DialogMaterialTimer.TAG!!)
     }
 
     override fun showError(error: Throwable) {
@@ -107,7 +147,7 @@ class RegisterUserActivity : BaseActivity(), RegisterUserContract.View {
     }
 
     override fun resultInsertPerson(response: PersonasEntity) {
-        showToast("Se ha registrado correctamente")
+        showSnackBar(_binding.root, "Se ha registrado correctamente")
     }
 
      companion object{
@@ -122,4 +162,5 @@ class RegisterUserActivity : BaseActivity(), RegisterUserContract.View {
          @JvmStatic
          val CODE_REQUEST_TAKE_PHOTO = 4
      }
+
 }

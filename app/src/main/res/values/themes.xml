@@ -34,7 +34,7 @@
 <!--        <item name="android:windowSharedElementExitTransition">@transition/changebounds</item>-->
 
         <!-- Customize your theme here. -->
-        <item name="colorDotProgress">@color/black</item>
+        <item name="colorDotProgress">@color/blue_500</item>
         <item name="colorTheme">@color/white</item>
         <item name="colorTextTheme">@color/black</item>
 
@@ -57,5 +57,7 @@
         <item name="android:windowMinWidthMinor">100%</item>
         <item name="android:layout_margin">0dp</item>
     </style>
+
+    <style name="ToolbarTheme" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar"/>
 
 </resources>

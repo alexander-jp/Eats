@@ -1,10 +1,8 @@
 package com.mx.mundet.eats.ui.mvp.login
 
 import com.mx.mundet.eats.bd.Entity.PersonasEntity
-import com.mx.mundet.eats.domain.model.PersonResponseBean
-import com.mx.mundet.eats.domain.repository.LoginRepository
+import com.mx.mundet.eats.domain.repository.UserRepository
 import com.mx.mundet.eats.ui.base.RxPresenter
-import com.mx.mundet.eats.ui.mvp.login.LoginContract
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
@@ -17,7 +15,7 @@ import javax.inject.Inject
 
 //class LoginPresenter  (private val repo : LoginRepository): RxPresenter<LoginContract.View>(), LoginContract.Presenter {
 
-class LoginPresenter @Inject constructor(private val repo: LoginRepository) : RxPresenter<LoginContract.View>(), LoginContract.Presenter {
+class LoginPresenter @Inject constructor(private val repo: UserRepository) : RxPresenter<LoginContract.View>(), LoginContract.Presenter {
 
     override var view: LoginContract.View? = null
 

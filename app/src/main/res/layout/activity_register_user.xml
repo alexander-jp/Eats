@@ -46,10 +46,10 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/txtEditTextName"
                 android:layout_width="match_parent"
-                android:tag="text"
+                android:tag="email"
                 android:layout_height="?attr/actionBarSize"
                 android:imeOptions="actionNext"
-                android:inputType="textCapWords">
+                android:inputType="textEmailAddress">
 
             </com.google.android.material.textfield.TextInputEditText>
 
@@ -100,6 +100,7 @@
             app:endIconMode="custom"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            android:onClick="showDatePicker"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtInputLayoutDescripcion"
             app:layout_constraintVertical_bias="0.01999998"
@@ -112,6 +113,7 @@
                 android:cursorVisible="false"
                 android:enabled="true"
                 android:focusable="false"
+                android:onClick="showDatePicker"
                 android:focusableInTouchMode="false"
                 android:imeOptions="actionDone"
                 android:inputType="text" />
@@ -127,6 +129,7 @@
             app:endIconCheckable="true"
             app:endIconDrawable="@drawable/ic_baseline_access_time_24"
             app:endIconMode="custom"
+            android:onClick="showTimePicker"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -140,6 +143,8 @@
                 android:layout_height="wrap_content"
                 android:cursorVisible="false"
                 android:enabled="true"
+                android:text=""
+                android:onClick="showTimePicker"
                 android:focusable="false"
                 android:focusableInTouchMode="false"
                 android:imeOptions="actionDone"
@@ -157,6 +162,7 @@
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:text="Guardar"
+            android:enabled="false"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="16sp"

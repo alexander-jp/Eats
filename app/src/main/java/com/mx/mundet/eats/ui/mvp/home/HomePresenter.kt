@@ -1,6 +1,6 @@
 package com.mx.mundet.eats.ui.mvp.home
 
-import com.mx.mundet.eats.domain.repository.LoginRepository
+import com.mx.mundet.eats.domain.repository.UserRepository
 import com.mx.mundet.eats.ui.base.RxPresenter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -11,7 +11,7 @@ import javax.inject.Inject
  * @author Alexander Juárez
  */
 
-class HomePresenter @Inject  constructor(private val repo: LoginRepository) : RxPresenter<HomeContract.View>(),HomeContract.Presenter {
+class HomePresenter @Inject  constructor(private val repo: UserRepository) : RxPresenter<HomeContract.View>(),HomeContract.Presenter {
 
     override var view: HomeContract.View?=null
 

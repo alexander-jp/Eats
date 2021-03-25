@@ -1,6 +1,5 @@
-package com.mx.mundet.eats.ui.mvp.registerUser
+package com.mx.mundet.eats.ui.mvp.detailUser
 
-import com.mx.mundet.eats.bd.Entity.PersonasEntity
 import com.mx.mundet.eats.domain.repository.UserRepository
 import com.mx.mundet.eats.ui.base.RxPresenter
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -8,26 +7,24 @@ import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 /**
- * Created by Alexander Juárez with Date 18/03/2021
+ * Created by Alexander Juárez with Date 24/03/2021
  * @author Alexander Juárez
  */
 
-class RegisterUserPresenter @Inject constructor(private val repo : UserRepository): RxPresenter<RegisterUserContract.View>(),
-    RegisterUserContract.Presenter {
+class DetailUserPresenter @Inject constructor(private val repo : UserRepository) : RxPresenter<DetailUserContract.View>(), DetailUserContract.Presenter {
+    override var view: DetailUserContract.View? = null
 
-    override var view: RegisterUserContract.View? = null
-
-    override fun subscribe(view: RegisterUserContract.View) {
+    override fun subscribe(view: DetailUserContract.View) {
         this.view = view
     }
 
-    override fun insertPerson(request: PersonasEntity) {
+    override fun getPeople(userId : Int) {
         launch {
-            repo.insertPersonBD(request)
+            repo.getPeople(userId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                     view?.resultInsertPerson(it)
+                    view?.resultGetPeople(it)
                 },{
                     view?.showError(it)
                 })
@@ -35,7 +32,8 @@ class RegisterUserPresenter @Inject constructor(private val repo : UserRepositor
     }
 
     override fun unSubscribe() {
-        this.view = null
         super.unSubscribe()
+        this.view = null
     }
+
 }

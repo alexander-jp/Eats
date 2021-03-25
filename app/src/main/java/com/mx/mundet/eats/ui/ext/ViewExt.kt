@@ -6,6 +6,7 @@ import android.transition.Slide
 import android.transition.Transition
 import android.util.TypedValue
 import android.view.Gravity
+import android.view.View
 import android.view.animation.DecelerateInterpolator
 import android.widget.Toast
 import androidx.annotation.AttrRes
@@ -18,6 +19,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import com.google.android.material.snackbar.Snackbar
 import java.util.concurrent.atomic.AtomicBoolean
 
 /**
@@ -43,6 +45,18 @@ fun AppCompatActivity.showToast(msg: String) {
 
 fun Fragment.showToast(msg: String) {
     Toast.makeText(activity, msg, Toast.LENGTH_SHORT).show()
+}
+
+fun AppCompatActivity.showSnackBar(view : View?, msg: String?) {
+    view?.let {
+        Snackbar.make(it, msg!!, Snackbar.LENGTH_SHORT).show()
+    }
+}
+
+fun Fragment.showSnackBar(msg: String) {
+    view?.let {
+        Snackbar.make(it, msg, Snackbar.LENGTH_SHORT).show()
+    }
 }
 
 fun <T> AppCompatActivity.changeActivity(clazz: Class<T>) {

@@ -1,9 +1,11 @@
 package com.mx.mundet.eats.ui.mvp.camera
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
@@ -11,13 +13,15 @@ import androidx.navigation.NavArgs
 import androidx.navigation.NavArgument
 import androidx.navigation.fragment.findNavController
 import com.mx.mundet.eats.R
+import com.mx.mundet.eats.ui.base.BaseActivity
+import com.mx.mundet.eats.ui.ext.showToast
 
 /**
  * Created by Alexander Juárez with Date 20/03/2021
  * @author Alexander Juárez
  */
 
-class ActivityCamera : AppCompatActivity() {
+class ActivityCamera : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,6 +64,27 @@ class ActivityCamera : AppCompatActivity() {
         supportFragmentManager.findFragmentById(R.id.nav_host_fragment_camera)?.findNavController()?.navigate(R.id.action_global_fragmentCamera, arg)
 //        supportFragmentManager.beginTransaction().replace(R.id.container_cam, FragmentCamera.newInstance(nameFile)).commit()
     }
+
+//    @SuppressLint("RestrictedApi")
+//    override fun onBackPressed() {
+//        val back = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_camera)?.findNavController()
+//        Log.e(TAG, "onBackPressed0: ${back?.backStack?.last}")
+//        Log.e(TAG, "onBackPressed1: ${back?.currentBackStackEntry?.toString()}")
+//        Log.e(TAG, "onBackPressed2: ${back?.previousBackStackEntry?.toString()}")
+//        //supportFragmentManager.findFragmentById(R.id.nav_host_fragment_camera)?.findNavController()?.navigateUp()
+////        val back = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_camera)
+////        if(supportFragmentManager.findFragmentById(R.id.nav_host_fragment_camera)?.isAdded!!){
+//////            showToast("si en backStack")
+//////            supportFragmentManager.findFragmentById(R.id.nav_host_fragment_camera)?.findNavController()?.navigateUp()
+////            back?.findNavController()?.popBackStack()
+////
+////        }else{
+////            //supportFragmentManager.findFragmentById(R.id.nav_host_fragment_camera)?.findNavController()?.navigate(R.id.action_global_fragmentHome_to_activityRegisterUser)
+////            //finishAfterTransition()
+////        }
+//    }
+
+
 
     companion object {
         @JvmStatic

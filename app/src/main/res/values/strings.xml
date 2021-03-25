@@ -15,6 +15,7 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="text_name_user">Alexander Juarez</string>
     <string name="text_title_item_home">Inicio</string>
+    <string name="text_title_item_settings">Ajustes</string>
     <string name="text_invitar_amigos">Invitar Amigos</string>
     <string name="text_preguntas_frecuentes">Preguntas frecuentes</string>
     <string name="text_context_description">context description</string>

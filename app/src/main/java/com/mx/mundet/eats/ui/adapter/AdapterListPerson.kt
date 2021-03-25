@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mx.mundet.eats.R
 import com.mx.mundet.eats.bd.Entity.PersonasEntity
 import com.mx.mundet.eats.databinding.ItemListPersonBinding
+import com.mx.mundet.eats.ui.interfaces.OnItemClickListener
 
 /**
  * Created by Alexander Juárez with Date 18/03/2021
@@ -16,6 +17,7 @@ import com.mx.mundet.eats.databinding.ItemListPersonBinding
 class AdapterListPerson : RecyclerView.Adapter<AdapterListPerson.VH>() {
 
     var lista: ArrayList<PersonasEntity> = arrayListOf()
+    var onClick : OnItemClickListener?=null
 
     fun insertItem(p: PersonasEntity) {
         lista.add(p)
@@ -31,6 +33,9 @@ class AdapterListPerson : RecyclerView.Adapter<AdapterListPerson.VH>() {
         holder.nombre.text = p.nombre
         holder.descripcion.text = p.sexo
         //holder.imagen.setImageResource(R.drawable.ic_launcher_background)
+        holder.itemView.setOnClickListener {
+            onClick?.OnItemClickListener(it, position)
+        }
     }
 
     override fun getItemCount(): Int {

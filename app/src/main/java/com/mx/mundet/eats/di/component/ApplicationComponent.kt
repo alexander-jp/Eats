@@ -1,6 +1,7 @@
 package com.mx.mundet.eats.di.component
 
 import com.mx.mundet.eats.di.module.*
+import com.mx.mundet.eats.ui.mvp.detailUser.ActivityDetailUser
 import com.mx.mundet.eats.ui.mvp.home.FragmentHome
 import com.mx.mundet.eats.ui.mvp.login.LoginActivity
 import com.mx.mundet.eats.ui.mvp.registerUser.RegisterUserActivity
@@ -17,9 +18,9 @@ import javax.inject.Singleton
 @Component(modules = [ApplicationModule::class,
                       AppModuleCommuns::class,
                       AppModuleNetwork::class,
-                      ApplicationModuleLogin::class,
-                      ApplicationModuleRegisterUser::class,
-                      ApplicationModuleHome::class])
+                      ApplicationModuleHome::class,
+                      ApplicationModulePresenter::class,
+                      ApplicationModuleRepository::class])
 
 interface ApplicationComponent {
 
@@ -32,4 +33,6 @@ interface ApplicationComponent {
     //TODO Fragments injection
 
     fun inject(target : FragmentHome)
+
+    fun inject (target : ActivityDetailUser)
 }

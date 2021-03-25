@@ -6,18 +6,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.mx.mundet.eats.App
 import com.mx.mundet.eats.bd.Entity.PersonasEntity
 import com.mx.mundet.eats.databinding.ActivityLoginBinding
-import com.mx.mundet.eats.domain.model.PersonResponseBean
-import com.mx.mundet.eats.domain.repository.LoginRepositoryImpl
 import com.mx.mundet.eats.ui.adapter.AdapterListPerson
 import com.mx.mundet.eats.ui.base.BaseActivity
 import com.mx.mundet.eats.ui.ext.changeActivity
 import com.mx.mundet.eats.ui.ext.showToast
-import com.mx.mundet.eats.ui.mvp.login.LoginContract
 import com.mx.mundet.eats.ui.mvp.registerUser.RegisterUserActivity
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 

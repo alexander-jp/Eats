@@ -31,9 +31,7 @@ import java.util.*
 class FragmentCamera : BaseFragment(R.layout.fragment_new_camera) {
 
     var nameFile: String? = null
-
     var fotoApp: Fotoapparat? = null
-
     var isFrontal: Boolean = false
     private lateinit var _binding: FragmentNewCameraBinding
 
@@ -42,7 +40,6 @@ class FragmentCamera : BaseFragment(R.layout.fragment_new_camera) {
         _binding = FragmentNewCameraBinding.bind(view)
         this.nameFile = arguments?.getString("nameFile")
         initListeners()
-        _binding.btTakePicture.isEnabled = true
     }
 
 
@@ -74,7 +71,7 @@ class FragmentCamera : BaseFragment(R.layout.fragment_new_camera) {
                 }
             )
         fotoApp?.start()
-        _binding.toolbarCamera.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.black))
+        //_binding.toolbarCamera.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.black))
 
     }
 
@@ -90,7 +87,8 @@ class FragmentCamera : BaseFragment(R.layout.fragment_new_camera) {
             }
         }
         _binding.toolbarCamera.setNavigationOnClickListener {
-            findNavController().popBackStack()
+            activity?.finish()
+            //findNavController().popBackStack()
         }
         _binding.btnSwitchCamera.setOnClickListener {
             if (isFrontal) {

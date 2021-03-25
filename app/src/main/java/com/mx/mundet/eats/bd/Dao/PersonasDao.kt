@@ -11,6 +11,9 @@ interface PersonasDao {
     @Insert
     fun insert(req: PersonasEntity)
 
+    @Query("SELECT * FROM personas WHERE id=:userId")
+    fun queryPersona(userId : Int): PersonasEntity
+
     @Query("SELECT * FROM personas ORDER BY id DESC")
     fun queryPersonas(): List<PersonasEntity>
 }
