@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.mvp.register.RegisterActivity">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/appbar_register"
+        style="@style/Widget.MaterialComponents.Toolbar.Primary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="?attr/colorTheme"
+        app:navigationIcon="@drawable/ic_round_close_24"
+        app:navigationIconTint="?attr/colorTextTheme" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/appbar_register"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="29sp"
+                android:textStyle="bold"
+                android:text="App Barber"
+                android:layout_height="wrap_content"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_marginTop="30dp"
+                android:id="@+id/txtInputLayoutNameRegister"
+                style="@style/customEditTextOutline"
+                app:endIconMode="clear_text"
+                android:hint="@string/text_nombres"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:inputType="textCapSentences"
+                    android:tag="text"
+                    android:id="@+id/txtEditTextNameRegister"
+                    android:layout_height="wrap_content"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_marginTop="10dp"
+                style="@style/customEditTextOutline"
+                app:endIconMode="clear_text"
+                android:id="@+id/txtInputLayoutApRegister"
+                android:hint="@string/primer_apellido"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:inputType="textCapSentences"
+                    android:tag="text"
+                    android:id="@+id/txtEditTextApRegister"
+                    android:layout_height="wrap_content"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_marginTop="10dp"
+                style="@style/customEditTextOutline"
+                app:endIconMode="clear_text"
+                android:id="@+id/txtInputLayoutAmRegister"
+                android:hint="@string/text_segundo_apellido"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:inputType="textCapSentences"
+                    android:tag="text"
+                    android:id="@+id/txtEditTextAmRegister"
+                    android:layout_height="wrap_content"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_marginTop="10dp"
+                style="@style/customEditTextOutline"
+                android:id="@+id/txtInputLayoutEmailRegister"
+                app:endIconMode="clear_text"
+                android:hint="@string/text_email"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:inputType="textEmailAddress"
+                    android:tag="email"
+                    android:id="@+id/txtEditTextEmailRegister"
+                    android:layout_height="wrap_content"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_marginTop="10dp"
+                style="@style/customEditTextOutline"
+                app:passwordToggleEnabled="true"
+                android:id="@+id/txtInputLayoutPasswordRegister"
+                android:hint="@string/text_password"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:inputType="textPassword"
+                    android:tag="password"
+                    android:id="@+id/txtEditTextPasswordRegister"
+                    android:layout_height="wrap_content"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="match_parent"
+                android:layout_marginTop="20dp"
+                android:text="@string/text_registarse"
+                style="@style/customBtn"
+                android:enabled="false"
+                android:id="@+id/btn_register_user"
+                android:textColor="@color/white"
+                android:layout_height="wrap_content"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="wrap_content"
+                android:layout_marginTop="15dp"
+                android:textAllCaps="false"
+                android:layout_gravity="center"
+                android:id="@+id/btn_what_account"
+                android:textColor="?attr/colorTextTheme"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:text="@string/text_what_account"
+                android:layout_marginBottom="15dp"
+                android:layout_marginHorizontal="18dp"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_marginHorizontal="18dp"
+                android:autoSizeTextType="uniform"
+                android:elegantTextHeight="true"
+                android:textAllCaps="false"
+                android:freezesText="true"
+                android:autoSizeMinTextSize="10sp"
+                android:autoSizeMaxTextSize="13.5sp"
+                android:text="@string/text_create_account_privacity"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+
+</RelativeLayout>

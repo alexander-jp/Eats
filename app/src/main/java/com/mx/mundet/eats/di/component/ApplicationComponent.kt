@@ -1,10 +1,12 @@
 package com.mx.mundet.eats.di.component
 
 import com.mx.mundet.eats.di.module.*
-import com.mx.mundet.eats.ui.mvp.detailUser.ActivityDetailUser
-import com.mx.mundet.eats.ui.mvp.home.FragmentHome
+import com.mx.mundet.eats.ui.mvp.detailUser.DetailUserActivity
+import com.mx.mundet.eats.ui.mvp.home.HomeFragment
 import com.mx.mundet.eats.ui.mvp.login.LoginActivity
+import com.mx.mundet.eats.ui.mvp.register.RegisterActivity
 import com.mx.mundet.eats.ui.mvp.registerUser.RegisterUserActivity
+import com.mx.mundet.eats.ui.mvp.welcome.WelcomeActivity
 import dagger.Component
 import javax.inject.Singleton
 
@@ -32,7 +34,11 @@ interface ApplicationComponent {
 
     //TODO Fragments injection
 
-    fun inject(target : FragmentHome)
+    fun inject(target : HomeFragment)
 
-    fun inject (target : ActivityDetailUser)
+    fun inject (target : DetailUserActivity)
+
+    fun inject(target : WelcomeActivity)
+
+    fun inject(target : RegisterActivity)
 }

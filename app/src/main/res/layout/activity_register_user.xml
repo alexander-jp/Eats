@@ -1,181 +1,248 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/red_500">
+    android:orientation="vertical"
+    android:layout_height="match_parent">
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar_add_user"
         style="@style/Widget.MaterialComponents.Toolbar.Primary"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:elevation="0dp"
-        app:title="Agregar personas"
-        app:titleTextColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0"
+        app:popupTheme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"
+        app:title="Agregar personas"
+        app:titleTextColor="@color/white" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@drawable/bg_corner_register"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar_add_user"
-        app:layout_constraintVertical_bias="0.0">
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/txtInputLayoutName"
-            style="@style/customEditTextOutline"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:hint="Nombre"
-            app:endIconMode="clear_text"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.03000000"
-            app:placeholderText="Ingrese su nombre">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/txtEditTextName"
-                android:layout_width="match_parent"
-                android:tag="email"
-                android:layout_height="?attr/actionBarSize"
-                android:imeOptions="actionNext"
-                android:inputType="textEmailAddress">
-
-            </com.google.android.material.textfield.TextInputEditText>
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/txtInputLayoutDescripcion"
-            style="@style/customEditTextOutline"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:hint="Descripcion"
-            android:nestedScrollingEnabled="true"
-            app:endIconMode="clear_text"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtInputLayoutName"
-            app:layout_constraintVertical_bias="0.01999998"
-            app:placeholderText="Ingrese la descripcion">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/txtEditTextDescripcion"
-                android:layout_width="match_parent"
+            <androidx.coordinatorlayout.widget.CoordinatorLayout
+                android:id="@+id/container_image_account_user"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:autoSizeTextType="uniform"
-                android:elegantTextHeight="true"
-                android:freezesText="true"
-                android:tag="textArea"
-                android:imeOptions="actionDone"
-                android:inputType="textCapSentences|textMultiLine"
-                android:isScrollContainer="true"
-                android:maxHeight="150dp"
-                android:nestedScrollingEnabled="true"
-                android:overScrollMode="always"
-                android:scrollbars="vertical"
-                android:verticalScrollbarPosition="defaultPosition" />
+                android:layout_marginTop="30dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/img_account_user"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_gravity="center"
+                    app:srcCompat="@drawable/cuenta" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/txtInputLayoutDate"
-            style="@style/customEditTextOutline"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:hint="Fecha"
-            app:endIconCheckable="true"
-            app:endIconDrawable="@drawable/ic_round_today"
-            app:endIconMode="custom"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:onClick="showDatePicker"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtInputLayoutDescripcion"
-            app:layout_constraintVertical_bias="0.01999998"
-            app:placeholderText="Seleccione la fecha">
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fab_add_image_user"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/text_context_description"
+                    android:src="@drawable/ic_round_photo_camera_24"
+                    app:backgroundTint="@color/blue_500"
+                    app:fabSize="mini"
+                    app:layout_anchor="@id/img_account_user"
+                    app:layout_anchorGravity="bottom|end"
+                    app:rippleColor="@color/white"
+                    app:tint="@color/white" />
+            </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/txtEditTextDateUser"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:cursorVisible="false"
-                android:enabled="true"
-                android:focusable="false"
-                android:onClick="showDatePicker"
-                android:focusableInTouchMode="false"
-                android:imeOptions="actionDone"
-                android:inputType="text" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/container_image_account_user"
+                app:layout_constraintVertical_bias="0.0">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/txtInputLayoutName"
+                    style="@style/customEditTextOutline"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:hint="Nombre"
+                    app:endIconMode="clear_text"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.03000000"
+                    app:placeholderText="Ingrese su nombre">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/txtInputLayoutTime"
-            style="@style/customEditTextOutline"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:hint="Hora"
-            app:endIconCheckable="true"
-            app:endIconDrawable="@drawable/ic_baseline_access_time_24"
-            app:endIconMode="custom"
-            android:onClick="showTimePicker"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtInputLayoutDate"
-            app:layout_constraintVertical_bias="0.01999998"
-            app:placeholderText="Selecciona la hora">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/txtEditTextName"
+                        android:layout_width="match_parent"
+                        android:layout_height="?attr/actionBarSize"
+                        android:imeOptions="actionNext"
+                        android:inputType="textEmailAddress"
+                        android:tag="email">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/txtEditTextTimeUser"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:cursorVisible="false"
-                android:enabled="true"
-                android:text=""
-                android:onClick="showTimePicker"
-                android:focusable="false"
-                android:focusableInTouchMode="false"
-                android:imeOptions="actionDone"
-                android:inputType="text" />
+                    </com.google.android.material.textfield.TextInputEditText>
 
-        </com.google.android.material.textfield.TextInputLayout>
+                </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnSaveUser"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="10dp"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-            android:text="Guardar"
-            android:enabled="false"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            android:textStyle="normal"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.95"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtInputLayoutTime"
-            app:layout_constraintVertical_bias="0.01999998" />
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/txtInputLayoutDescripcion"
+                    style="@style/customEditTextOutline"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:hint="Descripcion"
+                    android:nestedScrollingEnabled="true"
+                    app:endIconMode="clear_text"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtInputLayoutName"
+                    app:layout_constraintVertical_bias="0.01999998"
+                    app:placeholderText="Ingrese la descripcion">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/txtEditTextDescripcion"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:autoSizeTextType="uniform"
+                        android:elegantTextHeight="true"
+                        android:freezesText="true"
+                        android:imeOptions="actionDone"
+                        android:inputType="textCapSentences|textMultiLine"
+                        android:isScrollContainer="true"
+                        android:maxHeight="150dp"
+                        android:nestedScrollingEnabled="true"
+                        android:overScrollMode="always"
+                        android:scrollbars="vertical"
+                        android:tag="textArea"
+                        android:verticalScrollbarPosition="defaultPosition" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/txtInputLayoutDate"
+                    style="@style/customEditTextOutline"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:hint="Fecha"
+                    android:onClick="showDatePicker"
+                    app:endIconCheckable="true"
+                    app:endIconDrawable="@drawable/ic_round_today"
+                    app:endIconMode="custom"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtInputLayoutDescripcion"
+                    app:layout_constraintVertical_bias="0.01999998"
+                    app:placeholderText="Seleccione la fecha">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/txtEditTextDateUser"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:cursorVisible="false"
+                        android:enabled="true"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:imeOptions="actionDone"
+                        android:inputType="text"
+                        android:onClick="showDatePicker" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/txtInputLayoutTime"
+                    style="@style/customEditTextOutline"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:hint="Hora"
+                    android:onClick="showTimePicker"
+                    app:endIconCheckable="true"
+                    app:endIconDrawable="@drawable/ic_baseline_access_time_24"
+                    app:endIconMode="custom"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtInputLayoutDate"
+                    app:layout_constraintVertical_bias="0.01999998"
+                    app:placeholderText="Selecciona la hora">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/txtEditTextTimeUser"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:cursorVisible="false"
+                        android:enabled="true"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:imeOptions="actionDone"
+                        android:inputType="text"
+                        android:onClick="showTimePicker"
+                        android:text="" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/txtInputLayoutSexo"
+                    style="@style/customEditTextOutlineDropdown"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:hint="Genero"
+                    app:layout_constraintBottom_toBottomOf="parent"
+
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtInputLayoutTime"
+                    app:layout_constraintVertical_bias="0.0"
+                    app:placeholderText="Seleccione su genero">
+
+                    <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                        android:id="@+id/tv_item_Sexo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="none" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnSaveUser"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="10dp"
+                    android:enabled="false"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:text="Guardar"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:textStyle="normal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.95"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtInputLayoutSexo"
+                    app:layout_constraintVertical_bias="0.01999998" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+
+</LinearLayout>
 

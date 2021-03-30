@@ -1,6 +1,11 @@
 package com.mx.mundet.eats.ui.ext
 
 import android.content.Intent
+import android.graphics.Color
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
+import android.text.style.UnderlineSpan
 import android.transition.Fade
 import android.transition.Slide
 import android.transition.Transition
@@ -64,6 +69,13 @@ fun <T> AppCompatActivity.changeActivity(clazz: Class<T>) {
     startActivity(intent)
 }
 
+fun <T> AppCompatActivity.changeActivityFinish(clazz: Class<T>) {
+    val intent = Intent(this, clazz)
+    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+    startActivity(intent)
+    finish()
+}
+
 fun <T> Fragment.changeActivity(clazz: Class<T>) {
     val intent = Intent(activity, clazz)
     //val transition : Transition = Slide(Gravity.RIGHT)
@@ -117,4 +129,16 @@ fun Fragment.addAlertFragment(alertDialog: DialogFragment, tag: String) {
     val fragmentTransaction = childFragmentManager.beginTransaction()
     fragmentTransaction.add(alertDialog, tag)
     fragmentTransaction.commitAllowingStateLoss()
+}
+
+fun underLineText(content: String): SpannableString {
+    val s = SpannableString(content)
+    s.setSpan(UnderlineSpan(), 0, s.length, 0)
+    return s
+}
+
+fun changeColorCharacterLastIndex(content: String): SpannableString {
+    val span = SpannableString(content)
+    span.setSpan(ForegroundColorSpan(Color.RED), content.lastIndex, span.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+    return span
 }

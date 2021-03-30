@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="min_width">12%</dimen>
+    <dimen name="max_width">12%</dimen>
+    <dimen name="max_cornerDialog">100dp</dimen>
+    <dimen name="min_width_dialog">100%</dimen>
+    <dimen name="max_width_dialog">100%</dimen>
+</resources>

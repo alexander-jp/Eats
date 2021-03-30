@@ -5,9 +5,9 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:name=".App"
@@ -17,31 +17,40 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Eats"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true"
+        tools:targetApi="m">
 
-        <activity android:name=".ui.mvp.registerUser.RegisterUserActivity"
-            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.mvp.register.RegisterActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize"/>
 
-        <activity android:name=".ui.mvp.login.LoginActivity"
-            android:screenOrientation="portrait"/>
-
-        <activity android:name=".ui.mvp.camera.ActivityCamera"
-            android:screenOrientation="portrait"/>
-
-        <activity android:name=".ui.mvp.detailUser.ActivityDetailUser"
-            android:screenOrientation="portrait"/>
-
-        <!-- TODO Activity launch to initialize the app-->
-
-        <activity android:name=".ui.mvp.main.MainActivity"
-            android:screenOrientation="portrait">
+        <!-- TODO Activity launch to initialize the app -->
+        <activity android:name=".ui.mvp.welcome.WelcomeActivity"
+            android:theme="@style/splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <activity
+            android:name=".ui.mvp.registerUser.RegisterUserActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".ui.mvp.login.LoginActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".ui.mvp.camera.CameraActivity" />
+        <activity
+            android:name=".ui.mvp.detailUser.DetailUserActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.mvp.setting.SettingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.mvp.main.MainActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

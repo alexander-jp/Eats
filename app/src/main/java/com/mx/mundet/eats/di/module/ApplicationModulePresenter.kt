@@ -7,6 +7,8 @@ import com.mx.mundet.eats.ui.mvp.home.HomeContract
 import com.mx.mundet.eats.ui.mvp.home.HomePresenter
 import com.mx.mundet.eats.ui.mvp.login.LoginContract
 import com.mx.mundet.eats.ui.mvp.login.LoginPresenter
+import com.mx.mundet.eats.ui.mvp.register.RegisterContract
+import com.mx.mundet.eats.ui.mvp.register.RegisterPresenter
 import com.mx.mundet.eats.ui.mvp.registerUser.RegisterUserContract
 import com.mx.mundet.eats.ui.mvp.registerUser.RegisterUserPresenter
 import dagger.Module
@@ -43,12 +45,18 @@ class ApplicationModulePresenter {
     }
 
 
-
     //TODO for DetailUserPresenter
     @Singleton
     @Provides
     fun providePresenterDetailUser(repo : UserRepository) : DetailUserContract.Presenter{
         return DetailUserPresenter(repo)
+    }
+
+    //TODO for RegisterPresenter
+    @Singleton
+    @Provides
+    fun providePresenterRegister(repo : UserRepository) : RegisterContract.Presenter{
+        return RegisterPresenter(repo)
     }
 
 }

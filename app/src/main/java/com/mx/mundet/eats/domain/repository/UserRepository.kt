@@ -14,8 +14,9 @@ interface UserRepository {
 
     fun obtenerListaPersonas(): Single<List<PersonResponseBean>>
     fun obtenerListaPersonasBD(): Single<List<PersonasEntity>>
-    fun insertPersonBD(request : PersonasEntity) : Single<PersonasEntity>
-    fun getPeople(userId : Int) : Single<PersonasEntity>
+    fun insertPersonBD(request: PersonasEntity): Single<PersonasEntity>
+    fun getPeople(userId: Int): Single<PersonasEntity>
+    fun login(userName : String, password : String) : Single<Boolean>
 }
 
 
@@ -38,9 +39,8 @@ class UserRepositoryImpl @Inject constructor(
     }
 
     override fun obtenerListaPersonasBD(): Single<List<PersonasEntity>> = Single.create {
-        val p = database.personasDao().queryPersonas()
-        it.onSuccess(p)
-
+            val p = database.personasDao().queryPersonas()
+            it.onSuccess(p)
     }
 
     override fun insertPersonBD(request: PersonasEntity): Single<PersonasEntity> {
@@ -54,6 +54,13 @@ class UserRepositoryImpl @Inject constructor(
         return Single.create {
             val p = database.personasDao().queryPersona(userId)
             it.onSuccess(p)
+        }
+    }
+
+    override fun login(userName: String, password: String): Single<Boolean> {
+        return Single.create {
+            val l = database.personasDao().login(userName, password)
+            it.onSuccess(l)
         }
     }
 

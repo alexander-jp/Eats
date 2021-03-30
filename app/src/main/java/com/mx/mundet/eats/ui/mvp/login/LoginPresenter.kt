@@ -23,27 +23,13 @@ class LoginPresenter @Inject constructor(private val repo: UserRepository) : RxP
         this.view = view
     }
 
-
-    override fun obtenerListaPersonas() {
+    override fun loginUser(userName: String, password: String) {
         launch {
-            repo.obtenerListaPersonasBD()
+            repo.login(userName, password)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    view?.resultObtenerListaPersonas(it)
-                }, {
-                    view?.showError(it)
-                })
-        }
-    }
-
-    override fun insertPerson(request: PersonasEntity) {
-        launch {
-            repo.insertPersonBD(request)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-                     view?.resultInsertPerson(it)
+                    view?.resultLoginUser(it)
                 },{
                     view?.showError(it)
                 })

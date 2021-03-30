@@ -24,6 +24,18 @@ class PersonasEntity(
     @SerializedName("sexo")
     var sexo: String? = null,
 
+    @SerializedName("aPaterno")
+    var aPaterno : String? = null,
+
+    @SerializedName("aMaterno")
+    var aMaterno : String? = null,
+
+    @SerializedName("email")
+    var email : String? = null,
+
+    @SerializedName("password")
+    var password : String? = null
+
 //    @SerializedName("isSyncronized")
 //    var isSyncronized: Boolean? = null,
 )

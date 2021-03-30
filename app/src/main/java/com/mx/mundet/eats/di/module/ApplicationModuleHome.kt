@@ -1,12 +1,6 @@
 package com.mx.mundet.eats.di.module
 
-import com.mx.mundet.eats.domain.repository.UserRepository
-import com.mx.mundet.eats.ui.mvp.home.FragmentHome
-import com.mx.mundet.eats.ui.mvp.home.HomeContract
-import com.mx.mundet.eats.ui.mvp.home.HomePresenter
 import dagger.Module
-import dagger.Provides
-import javax.inject.Singleton
 
 /**
  * Created by Alexander Juárez with Date 19/03/2021

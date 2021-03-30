@@ -3,36 +3,47 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/fragmentHome">
+    app:startDestination="@id/nav_home">
 
     <fragment
         android:id="@+id/fragmentCamera"
-        android:name="com.mx.mundet.eats.ui.mvp.camera.FragmentCamera"
+        android:name="com.mx.mundet.eats.ui.mvp.camera.CameraFragment"
         android:label="FragmentCamera"
         tools:layout="@layout/fragment_new_camera" />
 
     <fragment
         android:id="@+id/fragmentImage"
-        android:name="com.mx.mundet.eats.ui.mvp.camera.FragmentImage"
+        android:name="com.mx.mundet.eats.ui.mvp.camera.ImageFragment"
         android:label="FragmentImage"
         tools:layout="@layout/fragment_show_image" />
 
     <fragment
-        android:id="@+id/fragmentHome"
+        android:id="@+id/nav_home"
         tools:layout="@layout/fragment_home"
-        android:name="com.mx.mundet.eats.ui.mvp.home.FragmentHome"
-        android:label="FragmentHome" />
+        android:name="com.mx.mundet.eats.ui.mvp.home.HomeFragment"
+        android:label="@string/menu_home" />
+
+    <activity
+        android:id="@+id/nav_settings"
+        tools:layout="@layout/activity_setting"
+        android:name="com.mx.mundet.eats.ui.mvp.setting.SettingActivity"
+        android:label="@string/menu_setting" />
 
     <fragment
-        android:id="@+id/fragmentSetting"
-        tools:layout="@layout/fragment_setting"
-        android:name="com.mx.mundet.eats.ui.mvp.FragmentSetting"
-        android:label="FragmentSetting" />
+        android:id="@+id/nav_recent"
+        tools:layout="@layout/fragment_recent"
+        android:name="com.mx.mundet.eats.ui.mvp.recent.RecentFragment"
+        android:label="@string/menu_recent" />
+
+    <fragment android:id="@+id/nav_all"
+        tools:layout="@layout/fragment_all"
+        android:name="com.mx.mundet.eats.ui.mvp.All.AllFragment"
+        android:label="@string/menu_all"/>
 
     <activity
         android:id="@+id/activityDetailUser"
         tools:layout="@layout/activity_detail_user"
-        android:name="com.mx.mundet.eats.ui.mvp.detailUser.ActivityDetailUser"
+        android:name="com.mx.mundet.eats.ui.mvp.detailUser.DetailUserActivity"
         android:label="ActivityDetailUser" />
 
     <activity
@@ -64,11 +75,11 @@
 
     <action android:id="@+id/action_global_fragmentHome"
         app:launchSingleTop="true"
-        app:destination="@id/fragmentHome" />
+        app:destination="@id/nav_home" />
 
     <action android:id="@+id/action_global_fragmentSetting"
         app:launchSingleTop="true"
-        app:destination="@id/fragmentSetting" />
+        app:destination="@id/nav_settings" />
 
     <action
         android:id="@+id/action_global_fragmentHome_to_activityDetailUser"
@@ -78,7 +89,7 @@
         app:launchSingleTop="true"
         app:popEnterAnim="@android:anim/slide_in_left"
         app:popExitAnim="@android:anim/slide_out_right"
-        app:popUpTo="@id/fragmentHome" />
+        app:popUpTo="@id/nav_home" />
 
     <action
         android:id="@+id/action_global_fragmentHome_to_activityRegisterUser"
@@ -88,7 +99,11 @@
         app:launchSingleTop="true"
         app:popEnterAnim="@android:anim/slide_in_left"
         app:popExitAnim="@android:anim/slide_out_right"
-        app:popUpTo="@id/fragmentHome" />
+        app:popUpTo="@id/nav_home" />
+
+    <action android:id="@+id/action_global_recentFragment"
+        app:launchSingleTop="true"
+        app:destination="@id/nav_recent"/>
 
 
 

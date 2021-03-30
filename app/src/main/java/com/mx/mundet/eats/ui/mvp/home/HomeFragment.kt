@@ -13,11 +13,7 @@ import com.mx.mundet.eats.ui.adapter.AdapterListPerson
 import com.mx.mundet.eats.ui.base.BaseFragment
 import com.mx.mundet.eats.ui.interfaces.OnItemClickListener
 import com.mx.mundet.eats.ui.message.MsgUserData
-import com.mx.mundet.eats.ui.message.MsgUserDataRefresh
-import com.mx.mundet.eats.ui.mvp.detailUser.ActivityDetailUser
 import org.greenrobot.eventbus.EventBus
-import org.greenrobot.eventbus.Subscribe
-import org.greenrobot.eventbus.ThreadMode
 import javax.inject.Inject
 
 
@@ -26,7 +22,7 @@ import javax.inject.Inject
  * @author Alexander Juárez
  */
 
-class FragmentHome : BaseFragment(R.layout.fragment_home), HomeContract.View {
+class HomeFragment : BaseFragment(R.layout.fragment_home), HomeContract.View {
 
     private lateinit var _binding: FragmentHomeBinding
 
@@ -44,24 +40,21 @@ class FragmentHome : BaseFragment(R.layout.fragment_home), HomeContract.View {
         initSettings()
         initListener()
 
-    }
-
-    override fun onResume() {
         hPresenter.subscribe(this)
         hPresenter.obtenerListaPersonas()
-        super.onResume()
+
     }
 
     private fun initSettings(){
-        initProgress(_binding?.root)
+        initProgress(_binding.root)
         //(activity as MainActivity).supportActionBar?.title = getString(R.string.text_title_item_home)
         //setTitleToobar(resources.getString(R.string.text_title_item_home))
-        _binding?.rvListHome?.setHasFixedSize(true)
-        _binding?.rvListHome?.layoutManager = LinearLayoutManager(activity)
+        _binding.rvListHome.setHasFixedSize(true)
+        _binding.rvListHome.layoutManager = LinearLayoutManager(requireContext())
     }
 
     private fun initListener() {
-        _binding?.fabAddPersonHome?.setOnClickListener {
+        _binding.fabAddPersonHome.setOnClickListener {
             findNavController().navigate(R.id.action_global_fragmentHome_to_activityRegisterUser)
         }
         adapter.onClick = object : OnItemClickListener{
@@ -74,16 +67,19 @@ class FragmentHome : BaseFragment(R.layout.fragment_home), HomeContract.View {
 
     override fun showError(error: Throwable) {
         Log.e(TAG, "showError: ${error.localizedMessage}")
+        showProgress(false)
     }
 
     override fun resultObtenerListaPersonas(response: List<PersonasEntity>) {
-        adapter.lista = response as ArrayList<PersonasEntity>
-        _binding?.rvListHome?.adapter = adapter
+        adapter.lista.clear()
+        adapter.lista.addAll(response)
+        _binding.rvListHome.adapter = adapter
         showProgress(false)
     }
 
     override fun onDestroyView() {
         hPresenter.unSubscribe()
+        showProgress(false)
         //EventBus.getDefault().unregister(this)
         super.onDestroyView()
     }
@@ -91,11 +87,11 @@ class FragmentHome : BaseFragment(R.layout.fragment_home), HomeContract.View {
 
     companion object {
         @JvmStatic
-        fun newInstance() = FragmentHome().apply {
+        fun newInstance() = HomeFragment().apply {
 
         }
 
         @JvmStatic
-        val TAG = FragmentHome::class.simpleName
+        val TAG = HomeFragment::class.simpleName
     }
 }

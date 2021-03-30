@@ -16,4 +16,7 @@ interface PersonasDao {
 
     @Query("SELECT * FROM personas ORDER BY id DESC")
     fun queryPersonas(): List<PersonasEntity>
+
+    @Query("SELECT * FROM personas WHERE email=:userName AND password=:password")
+    fun login(userName : String, password : String) : Boolean
 }

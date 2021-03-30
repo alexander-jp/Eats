@@ -12,7 +12,7 @@ class DialogMaterialCalendar {
 
     fun onCreateDialog() : MaterialDatePicker<Long>{
         return  MaterialDatePicker.Builder.datePicker().apply {
-//            setTheme(R.style.ThemeOverlay_Catalog_MaterialCalendar_Custom)
+            setTheme(R.style.ThemeOverlay_Catalog_MaterialCalendar_Custom)
             setSelection(MaterialDatePicker.todayInUtcMilliseconds())
         }.build()
     }

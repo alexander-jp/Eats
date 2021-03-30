@@ -8,13 +8,11 @@ import com.mx.mundet.eats.ui.base.BaseView
 interface LoginContract {
 
     interface View : BaseView<Presenter> {
-        fun resultObtenerListaPersonas(response: List<PersonasEntity>){}
-        fun resultInsertPerson(response : PersonasEntity){}
+        fun resultLoginUser(response: Boolean){}
     }
 
     interface Presenter : BasePresenter<View> {
-        fun obtenerListaPersonas(){}
-        fun insertPerson(request : PersonasEntity){}
+        fun loginUser(userName : String, password : String){}
     }
 
 

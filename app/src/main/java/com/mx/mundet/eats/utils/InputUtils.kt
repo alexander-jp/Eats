@@ -1,17 +1,11 @@
 package com.mx.mundet.eats.utils
 
 import android.content.Context
-import android.text.Editable
-import android.text.TextWatcher
-import android.util.Log
 import android.util.Patterns
-import androidx.appcompat.widget.AppCompatTextView
-import androidx.core.content.ContextCompat
 import androidx.core.widget.doOnTextChanged
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.mx.mundet.eats.R
-import java.util.regex.Pattern
 
 object InputUtils {
 
@@ -79,11 +73,11 @@ object InputUtils {
         return when (text.length >= 6) {
             true -> {
                 textInputLayout.error = null
-                null
+                text
             }
             false -> {
                 textInputLayout.error = ctx.getString(R.string.field_length_6)
-                text
+                null
             }
         }
 
@@ -96,12 +90,7 @@ object InputUtils {
 
     fun isValidPassword(text: String): Boolean = text.length >= 6
 
-    fun isValidLetters(text: String): Boolean {
-        return when(text.isNotEmpty()){
-            true -> true
-            false -> false
-        }
-    }
+    fun isValidLetters(text: String): Boolean = text.isNotEmpty()
 
     fun isValidLettersTextArea(text: String): Boolean {
         return when (text.length) {

@@ -1,6 +1,7 @@
 package com.mx.mundet.eats.ui.mvp.camera
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.navigation.fragment.findNavController
 import coil.load
@@ -14,7 +15,7 @@ import java.io.File
  * @author Alexander Juárez
  */
 
-class FragmentImage : BaseFragment(R.layout.fragment_show_image){
+class ImageFragment : BaseFragment(R.layout.fragment_show_image){
 
     private lateinit var _binding : FragmentShowImageBinding
     private var fileName : String?=null
@@ -24,6 +25,7 @@ class FragmentImage : BaseFragment(R.layout.fragment_show_image){
         _binding = FragmentShowImageBinding.bind(view)
 
         this.fileName = arguments?.getString("path")
+        Log.e(TAG, "onViewCreated: image show $fileName")
         loadImage()
         initListener()
     }
@@ -45,11 +47,11 @@ class FragmentImage : BaseFragment(R.layout.fragment_show_image){
 
      companion object{
           @JvmStatic
-          fun newInstance(fileName : String) = FragmentImage().apply{
+          fun newInstance(fileName : String) = ImageFragment().apply{
               this.fileName = fileName
           }
 
           @JvmStatic
-          val TAG = FragmentImage::class.simpleName
+          val TAG = ImageFragment::class.simpleName
      }
 }

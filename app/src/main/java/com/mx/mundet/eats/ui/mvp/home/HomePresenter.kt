@@ -1,5 +1,6 @@
 package com.mx.mundet.eats.ui.mvp.home
 
+import android.util.Log
 import com.mx.mundet.eats.domain.repository.UserRepository
 import com.mx.mundet.eats.ui.base.RxPresenter
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -25,7 +26,7 @@ class HomePresenter @Inject  constructor(private val repo: UserRepository) : RxP
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                           view?.resultObtenerListaPersonas(it)
+                    view?.resultObtenerListaPersonas(it)
                 },{
                     view?.showError(it)
                 })
@@ -33,8 +34,8 @@ class HomePresenter @Inject  constructor(private val repo: UserRepository) : RxP
     }
 
     override fun unSubscribe() {
-        this.view = null
         super.unSubscribe()
+        this.view = null
     }
 
 }

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Eats</string>
+    <string name="app_name">Barber</string>
     <string name="name_progressAV">BallPulseIndicator</string>
 
     <string name="text_guardar">Guardar</string>
@@ -20,4 +20,28 @@
     <string name="text_preguntas_frecuentes">Preguntas frecuentes</string>
     <string name="text_context_description">context description</string>
     <string name="text_ready">Listo</string>
+
+    <string name="menu_home">Inicio</string>
+    <string name="menu_recent">Recientes</string>
+    <string name="menu_all">Todos</string>
+    <string name="menu_setting">Ajustes</string>
+    <string name="text_siguiente">Siguiente</string>
+    <string name="text_omitir">Omitir</string>
+    <string name="text_iniciar">Iniciar</string>
+    <string name="text_email">Correo electrónico</string>
+    <string name="text_placeholder_email">Ingrese su correo electrónico</string>
+    <string name="text_placeholder_password">Ingrese su contraseña</string>
+    <string name="text_password">Contraseña</string>
+    <string name="text_forgot_password"><b>Recuperar contraseña</b></string>
+    <string name="text_log_in">Ingresar</string>
+    <string name="text_not_account"><u>¿No tienes una cuenta?</u></string>
+    <string name="text_name_app">Barber</string>
+    <string name="text_nombres">Nombres</string>
+    <string name="primer_apellido">Primer apellido</string>
+    <string name="text_segundo_apellido">Segundo apellido</string>
+    <string name="text_registarse">Registarse</string>
+    <string name="text_what_account"><u>¿Ya tienes una cuenta?</u></string>
+
+    <!-- text larges-->
+    <string name="text_create_account_privacity">Al crear una cuenta, acepto los <b>Términos y condiciones</b> \n de App Barber Inc, y confirmo que leí y acepto los \n<b>Términos de uso</b> y las <u>Política de privacidad.</u></string>
 </resources>

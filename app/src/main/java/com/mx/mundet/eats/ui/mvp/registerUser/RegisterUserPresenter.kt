@@ -35,7 +35,7 @@ class RegisterUserPresenter @Inject constructor(private val repo : UserRepositor
     }
 
     override fun unSubscribe() {
-        this.view = null
         super.unSubscribe()
+        this.view = null
     }
 }

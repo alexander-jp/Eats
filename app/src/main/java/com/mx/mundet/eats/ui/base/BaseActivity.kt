@@ -1,5 +1,7 @@
 package com.mx.mundet.eats.ui.base
 
+import android.annotation.SuppressLint
+import android.app.Dialog
 import android.os.Bundle
 import android.view.Gravity
 import android.view.ViewGroup
@@ -16,12 +18,36 @@ import com.wang.avi.AVLoadingIndicatorView
  */
 
 open class BaseActivity : AppCompatActivity() {
-    private var progress: AVLoadingIndicatorView? = null
 
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//
-//    }
+    private var progress: AVLoadingIndicatorView? = null
+    private var myProgress: Dialog? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        initProgressDialog()
+
+    }
+
+    @SuppressLint("InflateParams")
+    private fun initProgressDialog() {
+        val myView = layoutInflater.inflate(R.layout.custom_progress_dialog, null)
+        myProgress = Dialog(this, R.style.cornerDialog)
+        myProgress?.setCancelable(false)
+        myProgress?.setContentView(myView)
+        myProgress?.create()
+    }
+
+    fun showDialogProgress(status: Boolean) {
+        if (status) {
+            if (!myProgress?.isShowing!!) {
+                myProgress?.show()
+            }
+        } else {
+            if (myProgress?.isShowing!!) {
+                myProgress?.dismiss()
+            }
+        }
+    }
 
     fun initProgress(view: ViewGroup?) {
         view?.let {
@@ -37,13 +63,13 @@ open class BaseActivity : AppCompatActivity() {
         }
     }
 
-    fun showProgress(show :Boolean){
-        if(show){
-            if(!progress?.isShown!!){
+    fun showProgress(show: Boolean) {
+        if (show) {
+            if (!progress?.isShown!!) {
                 progress?.show()
             }
-        }else{
-            if(progress?.isShown!!){
+        } else {
+            if (progress?.isShown!!) {
                 progress?.hide()
             }
         }

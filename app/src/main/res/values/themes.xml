@@ -41,9 +41,38 @@
 
     </style>
 
+
+    <style name="splash" parent="Theme.MaterialComponents.Light.NoActionBar">
+
+        <item name="android:statusBarColor">@color/red_200</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
+        <item name="android:windowTranslucentStatus">false</item>
+
+        <item name="android:windowBackground">@drawable/bg_splash</item>
+        <item name="android:navigationBarColor">@color/red_200</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">false</item>
+    </style>
+
+
     <!-- custom TextInputLayout-->
 
     <style name="customEditTextOutline" parent="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="android:layout_marginEnd">18dp</item>
+        <item name="android:layout_marginStart">18dp</item>
+    </style>
+
+    <style name="customEditTextFilled" parent="@style/Widget.MaterialComponents.TextInputLayout.FilledBox">
+        <item name="android:layout_marginEnd">18dp</item>
+        <item name="android:layout_marginStart">18dp</item>
+    </style>
+
+    <style name="customBtn" >
+        <item name="android:layout_marginEnd">18dp</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:layout_marginStart">18dp</item>
+    </style>
+
+    <style name="customEditTextOutlineDropdown" parent="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
         <item name="android:layout_marginEnd">18dp</item>
         <item name="android:layout_marginStart">18dp</item>
     </style>
@@ -59,5 +88,38 @@
     </style>
 
     <style name="ToolbarTheme" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar"/>
+
+
+    <style name="cornerDialog" parent="Theme.MaterialComponents.Light.Dialog">
+        <item name="android:dialogCornerRadius" tools:targetApi="p">@dimen/max_cornerDialog</item>
+        <item name="android:windowMinWidthMajor">@dimen/max_width</item>
+        <item name="android:windowMinWidthMinor">@dimen/min_width</item>
+    </style>
+
+    <style name="Widget.Button.OutlinedButton.Icon" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="iconPadding">0dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:backgroundTint">@color/white</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:paddingLeft">12dp</item>
+        <item name="android:paddingRight">12dp</item>
+        <item name="android:minWidth">48dp</item>
+        <item name="android:minHeight">48dp</item>
+    </style>
+
+    <style name="Camera" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowTranslucentStatus">false</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
+    <style name="ThemeOverlay.Catalog.MaterialCalendar.Custom" parent="@style/ThemeOverlay.MaterialComponents.MaterialCalendar">
+        <!--        <item name="colorPrimary">?attr/colorAccent</item>-->
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="textInputStyle">@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox</item>
+        <!--        <item name="android:textColor">?attr/colorLight</item>-->
+        <!--        <item name="android:tint">?attr/colorAccent</item>-->
+    </style>
 
 </resources>
