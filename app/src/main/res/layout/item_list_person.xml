@@ -4,7 +4,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:checkable="true"
     android:clickable="true"
+    android:focusable="true"
+    android:id="@+id/container_card_item"
     android:layout_margin="10dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -20,8 +23,8 @@
 
         <ImageView
             android:id="@+id/imgv_picture_movie_popular"
-            android:layout_width="0dp"
-            android:layout_height="100dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:layout_margin="10dp"
             android:scaleType="fitXY"
             android:src="@drawable/cuenta"
@@ -36,6 +39,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Title Movie"
+            android:layout_marginTop="15dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/guideline3"

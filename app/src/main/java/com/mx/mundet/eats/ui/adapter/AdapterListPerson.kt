@@ -4,6 +4,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
+import coil.transform.CircleCropTransformation
 import com.mx.mundet.eats.R
 import com.mx.mundet.eats.bd.Entity.PersonasEntity
 import com.mx.mundet.eats.databinding.ItemListPersonBinding
@@ -18,6 +20,7 @@ class AdapterListPerson : RecyclerView.Adapter<AdapterListPerson.VH>() {
 
     var lista: ArrayList<PersonasEntity> = arrayListOf()
     var onClick : OnItemClickListener?=null
+    var longClick : OnItemClickListener?=null
 
     fun insertItem(p: PersonasEntity) {
         lista.add(p)
@@ -32,9 +35,16 @@ class AdapterListPerson : RecyclerView.Adapter<AdapterListPerson.VH>() {
         val p = lista[position]
         holder.nombre.text = p.nombre
         holder.descripcion.text = p.sexo
-        //holder.imagen.setImageResource(R.drawable.ic_launcher_background)
+        holder.imagen.load(R.drawable.cuenta){
+            transformations(CircleCropTransformation())
+        }
         holder.itemView.setOnClickListener {
             onClick?.OnItemClickListener(it, position)
+        }
+        holder.itemView.setOnLongClickListener {
+            longClick?.OnItemClickListener(it, position)
+            holder.card.isChecked = true
+            return@setOnLongClickListener true
         }
     }
 
@@ -47,5 +57,7 @@ class AdapterListPerson : RecyclerView.Adapter<AdapterListPerson.VH>() {
         val nombre = _binding.tvTitleMoviePopular
         val descripcion = _binding.tvDescriptionMoviePopular
         val imagen = _binding.imgvPictureMoviePopular
+        val card = _binding.containerCardItem
+
     }
 }

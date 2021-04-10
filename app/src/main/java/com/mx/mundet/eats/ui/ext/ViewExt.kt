@@ -1,23 +1,21 @@
 package com.mx.mundet.eats.ui.ext
 
 import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.Color
+import android.graphics.Matrix
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.text.style.UnderlineSpan
-import android.transition.Fade
-import android.transition.Slide
-import android.transition.Transition
 import android.util.TypedValue
-import android.view.Gravity
 import android.view.View
-import android.view.animation.DecelerateInterpolator
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
+import android.widget.EditText
 import android.widget.Toast
 import androidx.annotation.AttrRes
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityOptionsCompat
-import androidx.core.view.GravityCompat
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
@@ -25,6 +23,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.google.android.material.snackbar.Snackbar
+import com.mx.mundet.eats.R
 import java.util.concurrent.atomic.AtomicBoolean
 
 /**
@@ -58,9 +57,9 @@ fun AppCompatActivity.showSnackBar(view : View?, msg: String?) {
     }
 }
 
-fun Fragment.showSnackBar(msg: String) {
+fun Fragment.showSnackBar(msg: String?) {
     view?.let {
-        Snackbar.make(it, msg, Snackbar.LENGTH_SHORT).show()
+        Snackbar.make(it, msg!!, Snackbar.LENGTH_SHORT).show()
     }
 }
 
@@ -72,8 +71,17 @@ fun <T> AppCompatActivity.changeActivity(clazz: Class<T>) {
 fun <T> AppCompatActivity.changeActivityFinish(clazz: Class<T>) {
     val intent = Intent(this, clazz)
     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+    //intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
     startActivity(intent)
     finish()
+}
+
+fun <T> Fragment.changeActivityFinish(clazz: Class<T>) {
+    val intent = Intent(activity, clazz)
+    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+    //intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+    startActivity(intent)
+    activity?.finish()
 }
 
 fun <T> Fragment.changeActivity(clazz: Class<T>) {
@@ -142,3 +150,16 @@ fun changeColorCharacterLastIndex(content: String): SpannableString {
     span.setSpan(ForegroundColorSpan(Color.RED), content.lastIndex, span.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
     return span
 }
+
+fun <T> AppCompatActivity.addDropdownAdapter (items : List<T>, view : EditText?, adapter : () -> Unit){
+    val adapters = ArrayAdapter(this, R.layout.item_list_dropdown, items)
+    (view as? AutoCompleteTextView)?.setAdapter(adapters)
+    adapter.invoke()
+}
+
+fun <T> Fragment.addDropdownAdapter (items : List<T>, view : EditText?, adapter : () -> Unit){
+    val adapters = ArrayAdapter(requireContext(), R.layout.item_list_dropdown, items)
+    (view as? AutoCompleteTextView)?.setAdapter(adapters)
+    adapter.invoke()
+}
+

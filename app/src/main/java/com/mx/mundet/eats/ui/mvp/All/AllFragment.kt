@@ -5,6 +5,8 @@ import android.view.View
 import com.mx.mundet.eats.R
 import com.mx.mundet.eats.databinding.FragmentAllBinding
 import com.mx.mundet.eats.ui.base.BaseFragment
+import com.mx.mundet.eats.ui.ext.changeActivity
+import com.mx.mundet.eats.ui.mvp.fileChooser.FileChooserActivity
 
 /**
  * Created by Alexander Juárez with Date 26/03/2021
@@ -18,5 +20,13 @@ class AllFragment : BaseFragment(R.layout.fragment_all) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentAllBinding.bind(view)
+        initListeners()
+    }
+
+
+    private fun initListeners(){
+        _binding.btnPickFiles.setOnClickListener {
+            changeActivity(FileChooserActivity::class.java)
+        }
     }
 }

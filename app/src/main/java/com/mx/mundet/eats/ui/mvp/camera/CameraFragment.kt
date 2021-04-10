@@ -1,20 +1,25 @@
 package com.mx.mundet.eats.ui.mvp.camera
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
+import androidx.core.net.toUri
 import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import com.mx.mundet.eats.R
 import com.mx.mundet.eats.databinding.FragmentNewCameraBinding
 import com.mx.mundet.eats.ui.base.BaseFragment
+import com.mx.mundet.eats.utils.MediaUtils
 import io.fotoapparat.Fotoapparat
 import io.fotoapparat.configuration.CameraConfiguration
 import io.fotoapparat.parameter.Flash
 import io.fotoapparat.parameter.Resolution
-import io.fotoapparat.selector.*
+import io.fotoapparat.selector.back
+import io.fotoapparat.selector.front
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
@@ -24,6 +29,7 @@ import java.util.*
  * @author Alexander Juárez
  */
 
+@RequiresApi(Build.VERSION_CODES.Q)
 class CameraFragment : BaseFragment(R.layout.fragment_new_camera) {
 
     var nameFile: String? = null
@@ -80,9 +86,11 @@ class CameraFragment : BaseFragment(R.layout.fragment_new_camera) {
         _binding.btTakePicture.setOnClickListener {
             val newFile = createFile()
             fotoApp?.takePicture()?.saveToFile(newFile)?.whenAvailable {
-                val file = File(newFile.path)
+
+                val bm = MediaUtils.bitMaptoBase64(requireContext(), newFile.toUri())
                 //addAlertFragment(DialogCameraImage.newInstance(newFile.path), DialogCameraImage.TAG!!)
-                val bundle = bundleOf("path" to newFile.path)
+                Log.e(TAG, "initListeners: ${newFile.path}")
+                val bundle = bundleOf("path" to bm)
                 findNavController().navigate(R.id.action_global_fragmentImage, bundle)
             }
         }
@@ -131,14 +139,19 @@ class CameraFragment : BaseFragment(R.layout.fragment_new_camera) {
             CODE_PICK_IMAGE -> {
                 if (data?.data != null) {
                     nameFile = data.data?.path
-                    Log.e(TAG, "onActivityResult nameFile: $nameFile")
-                    val bundle = bundleOf("path" to nameFile)
+                    val imageUri = data.data
+                    val bm = MediaUtils.bitMaptoBase64(requireContext(), imageUri)
+//                    val exif = ExifInterface(data.data?.path)
+//                    exif.getAttribute(ExifInterface.TAG_ORIENTATION)
+//                    Log.e(TAG, "orientation image take: ${exif.getAttribute(ExifInterface.TAG_ORIENTATION)}")
+                    val bundle = bundleOf("path" to bm)
                     findNavController().navigate(R.id.action_global_fragmentImage, bundle)
                 }
             }
         }
         super.onActivityResult(requestCode, resultCode, data)
     }
+
 
     override fun onResume() {
         startFotoApp()

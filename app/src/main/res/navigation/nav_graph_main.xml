@@ -82,7 +82,7 @@
         app:destination="@id/nav_settings" />
 
     <action
-        android:id="@+id/action_global_fragmentHome_to_activityDetailUser"
+        android:id="@+id/action_global_activityDetailUser"
         app:destination="@id/activityDetailUser"
         app:enterAnim="@android:anim/slide_in_left"
         app:exitAnim="@android:anim/slide_out_right"
@@ -92,7 +92,7 @@
         app:popUpTo="@id/nav_home" />
 
     <action
-        android:id="@+id/action_global_fragmentHome_to_activityRegisterUser"
+        android:id="@+id/action_global_activityRegisterUser"
         app:destination="@id/registerUserActivity"
         app:enterAnim="@android:anim/slide_in_left"
         app:exitAnim="@android:anim/slide_out_right"

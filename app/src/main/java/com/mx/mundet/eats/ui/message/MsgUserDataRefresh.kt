@@ -5,5 +5,4 @@ package com.mx.mundet.eats.ui.message
  * @author Alexander Juárez
  */
 
-class MsgUserDataRefresh {
-}
+class MsgUserDataRefresh ()

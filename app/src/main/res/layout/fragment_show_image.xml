@@ -37,6 +37,7 @@
         android:layout_marginVertical="20dp"
         app:backgroundTint="@color/blue_500"
         app:tint="@color/white"
+        android:id="@+id/fab_next_image"
         app:rippleColor="@color/white"
         app:srcCompat="@drawable/ic_round_next"
         app:layout_constraintBottom_toBottomOf="parent"

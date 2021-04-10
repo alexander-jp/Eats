@@ -4,8 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import coil.load
@@ -18,15 +16,24 @@ import com.mx.mundet.eats.ui.base.BaseActivity
 import com.mx.mundet.eats.ui.dialog.DialogMaterialCalendar
 import com.mx.mundet.eats.ui.dialog.DialogMaterialTimer
 import com.mx.mundet.eats.ui.ext.addAlertFragment
+import com.mx.mundet.eats.ui.ext.addDropdownAdapter
+import com.mx.mundet.eats.ui.ext.changeActivity
 import com.mx.mundet.eats.ui.ext.showSnackBar
+import com.mx.mundet.eats.ui.message.MsgImageUser
+import com.mx.mundet.eats.ui.message.MsgUserDataRefresh
+import com.mx.mundet.eats.ui.model.MetodoPagoModel
 import com.mx.mundet.eats.ui.model.RegisterUserModel
 import com.mx.mundet.eats.ui.mvp.camera.CameraActivity
 import com.mx.mundet.eats.utils.InputUtils
 import com.mx.mundet.eats.utils.InputUtils.validate
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import javax.inject.Inject
 
 class RegisterUserActivity : BaseActivity(), RegisterUserContract.View {
     private lateinit var _binding : ActivityRegisterUserBinding
+    private var data : RegisterUserModel ?=null
 
     @Inject
     lateinit var rPresenter : RegisterUserContract.Presenter
@@ -40,7 +47,7 @@ class RegisterUserActivity : BaseActivity(), RegisterUserContract.View {
         super.onCreate(savedInstanceState)
         _binding = ActivityRegisterUserBinding.inflate(layoutInflater)
         setContentView(_binding.root)
-
+        EventBus.getDefault().register(this)
         initSettings()
         initObservers()
         initListeners()
@@ -51,18 +58,26 @@ class RegisterUserActivity : BaseActivity(), RegisterUserContract.View {
         setSupportActionBar(_binding.toolbarAddUser)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         _binding.toolbarAddUser.title = getString(R.string.text_add_person)
-        _binding.imgAccountUser.load(R.drawable.cuenta){
-            transformations(CircleCropTransformation())
-        }
+//        _binding.imgAccountUser.load(R.drawable.ic_outline_account_circle_24){
+//            transformations(CircleCropTransformation())
+//        }
         _binding.toolbarAddUser.setNavigationIcon(R.drawable.ic_round_close_24)
-        val items = listOf("Masculino", "Femenino")
-        val adapter = ArrayAdapter(this, R.layout.item_list_sexo, items)
-        (_binding.txtInputLayoutSexo.editText as? AutoCompleteTextView)?.setAdapter(adapter)
+        addDropdownAdapter(items = MetodoPagoModel().listData(), view = _binding.txtInputLayoutSexo.editText){
+
+        }
     }
 
     override fun onResume() {
         rPresenter.subscribe(this)
+        if(data!=null){
+            _registerUserMutable.value = data
+        }
         super.onResume()
+    }
+
+    override fun onPause() {
+        data = registerUser
+        super.onPause()
     }
 
     private fun initObservers(){
@@ -78,8 +93,7 @@ class RegisterUserActivity : BaseActivity(), RegisterUserContract.View {
     private fun initListeners(){
 
         _binding.fabAddImageUser.setOnClickListener {
-            val intent = Intent(this, CameraActivity::class.java)
-            startActivity(intent)
+            changeActivity(CameraActivity::class.java)
         }
 
         _binding.toolbarAddUser.setNavigationOnClickListener {
@@ -97,19 +111,13 @@ class RegisterUserActivity : BaseActivity(), RegisterUserContract.View {
         })
 
         _binding.btnSaveUser.setOnClickListener {
-            rPresenter.insertPerson(PersonasEntity(nombre = registerUser.name, edad = 23, sexo = "Hombre"))
             showDialogProgress(true)
-            //intent.putExtra("nameFile", "nameFile")
-            //startActivityForResult(intent, CODE_REQUEST_TAKE_PHOTO )
+            rPresenter.insertPerson(PersonasEntity(nombre = registerUser.name, edad = 23, sexo = "Hombre"))
         }
 
-        _binding.txtInputLayoutDate.setEndIconOnClickListener {
-            showDatePicker(View(this))
-        }
+        _binding.txtInputLayoutDate.setEndIconOnClickListener { showDatePicker(View(this)) }
 
-        _binding.txtInputLayoutTime.setEndIconOnClickListener {
-            showTimePicker(View(this))
-        }
+        _binding.txtInputLayoutTime.setEndIconOnClickListener {showDatePicker(View(this)) }
     }
 
     fun showDatePicker(view: View){
@@ -134,12 +142,26 @@ class RegisterUserActivity : BaseActivity(), RegisterUserContract.View {
     }
 
     override fun showError(error: Throwable) {
-        Log.e(TAG, "showError: ${error.printStackTrace()}")
+        showSnackBar(_binding.root, error.message)
     }
 
     override fun resultInsertPerson(response: PersonasEntity) {
+        EventBus.getDefault().postSticky(MsgUserDataRefresh())
         showDialogProgress(false)
         showSnackBar(_binding.root, "Se ha registrado correctamente")
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    fun setImageUser(msg : MsgImageUser){
+        _binding.imgAccountUser.load(msg.img){
+            transformations(CircleCropTransformation())
+        }
+    }
+
+    override fun onDestroy() {
+        rPresenter.unSubscribe()
+        EventBus.getDefault().unregister(this)
+        super.onDestroy()
     }
 
 //    override fun onCreateOptionsMenu(menu: Menu?): Boolean {

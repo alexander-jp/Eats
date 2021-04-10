@@ -1,14 +1,15 @@
 package com.mx.mundet.eats.ui.mvp.camera
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.navigation.fragment.findNavController
 import coil.load
 import com.mx.mundet.eats.R
 import com.mx.mundet.eats.databinding.FragmentShowImageBinding
 import com.mx.mundet.eats.ui.base.BaseFragment
-import java.io.File
+import com.mx.mundet.eats.ui.message.MsgImageUser
+import com.mx.mundet.eats.utils.MediaUtils
+import org.greenrobot.eventbus.EventBus
 
 /**
  * Created by Alexander Juárez with Date 20/03/2021
@@ -25,14 +26,13 @@ class ImageFragment : BaseFragment(R.layout.fragment_show_image){
         _binding = FragmentShowImageBinding.bind(view)
 
         this.fileName = arguments?.getString("path")
-        Log.e(TAG, "onViewCreated: image show $fileName")
         loadImage()
         initListener()
     }
 
     private fun loadImage(){
         fileName?.let {
-            _binding.imgImageAccount.load(File(it))
+            _binding.imgImageAccount.load(MediaUtils.base64ToImg(fileName!!))
         }
     }
 
@@ -41,6 +41,10 @@ class ImageFragment : BaseFragment(R.layout.fragment_show_image){
             //TODO for popBackStack is necesary the ID of fragment more not ID action
             findNavController().navigateUp()
             //findNavController().popBackStack(R.id.fragmentImage, true)
+        }
+        _binding.fabNextImage.setOnClickListener {
+            EventBus.getDefault().postSticky(MsgImageUser(img = MediaUtils.base64ToImg(fileName!!)))
+            activity?.finish()
         }
     }
 

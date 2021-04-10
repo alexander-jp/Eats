@@ -1,6 +1,5 @@
 package com.mx.mundet.eats.ui.mvp.login
 
-import com.mx.mundet.eats.bd.Entity.PersonasEntity
 import com.mx.mundet.eats.domain.repository.UserRepository
 import com.mx.mundet.eats.ui.base.RxPresenter
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -35,6 +34,7 @@ class LoginPresenter @Inject constructor(private val repo: UserRepository) : RxP
                 })
         }
     }
+
 
     override fun unSubscribe() {
         super.unSubscribe()

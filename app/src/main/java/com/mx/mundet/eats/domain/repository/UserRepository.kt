@@ -39,7 +39,7 @@ class UserRepositoryImpl @Inject constructor(
     }
 
     override fun obtenerListaPersonasBD(): Single<List<PersonasEntity>> = Single.create {
-            val p = database.personasDao().queryPersonas()
+            val p = database.personasDao().queryPersonas().distinctBy {p -> p.nombre}
             it.onSuccess(p)
     }
 
@@ -63,5 +63,6 @@ class UserRepositoryImpl @Inject constructor(
             it.onSuccess(l)
         }
     }
+
 
 }
