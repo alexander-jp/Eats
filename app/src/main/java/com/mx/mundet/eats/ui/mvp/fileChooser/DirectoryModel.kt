@@ -8,7 +8,8 @@ package com.mx.mundet.eats.ui.mvp.fileChooser
 data class DirectoryModel (
     var dirName: String? = null,
     var dirType: Int? = null,
+    var pathParent : String?=null,
 ){
     var icon : String?=null
-    var numberCount : Int?=null
+    var count : Int?=null
 }

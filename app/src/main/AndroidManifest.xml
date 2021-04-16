@@ -21,14 +21,12 @@
         android:theme="@style/Theme.Eats"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-
+        <activity android:name=".ui.mvp.fileChooser.ImageListActivity"></activity>
         <activity android:name=".ui.mvp.fileChooser.FileChooserActivity" />
-
         <activity
             android:name=".ui.mvp.register.RegisterActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" /> <!-- TODO Activity launch to initialize the app -->
-
         <activity
             android:name=".ui.mvp.welcome.WelcomeActivity"
             android:theme="@style/splash">
@@ -38,31 +36,24 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".ui.mvp.registerUser.RegisterUserActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
-
         <activity
             android:name=".ui.mvp.login.LoginActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
-
         <activity android:name=".ui.mvp.camera.CameraActivity" />
-
         <activity
             android:name=".ui.mvp.detailUser.DetailUserActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".ui.mvp.setting.SettingActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".ui.mvp.main.MainActivity"
             android:screenOrientation="portrait" />
-
     </application>
 
 </manifest>

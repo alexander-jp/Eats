@@ -23,8 +23,8 @@
 
         <ImageView
             android:id="@+id/imgv_picture_movie_popular"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:layout_margin="10dp"
             android:scaleType="fitXY"
             android:src="@drawable/cuenta"
