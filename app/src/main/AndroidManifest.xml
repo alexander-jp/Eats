@@ -54,6 +54,9 @@
         <activity
             android:name=".ui.mvp.main.MainActivity"
             android:screenOrientation="portrait" />
+
+        <activity android:name=".ui.mvp.camera.ImageActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

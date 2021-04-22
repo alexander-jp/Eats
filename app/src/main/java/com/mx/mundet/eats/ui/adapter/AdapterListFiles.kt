@@ -25,6 +25,7 @@ class AdapterListFiles : RecyclerView.Adapter<AdapterListFiles.VH>() {
 
     var items : ArraySet<DirectoryModel> = arraySetOf()
     var onClick : OnItemClickListener?=null
+    var optionList : String?=null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
         return VH(LayoutInflater.from(parent.context).inflate(R.layout.items_files_chooser, parent, false))
@@ -32,7 +33,12 @@ class AdapterListFiles : RecyclerView.Adapter<AdapterListFiles.VH>() {
 
     override fun onBindViewHolder(holder: VH, position: Int) {
         val f = items.valueAt(position)
-        holder.title.text = f?.dirName
+        optionList?.let {
+            when(it){
+                "folder" -> holder.title.text = f?.dirName
+                else -> holder.title.visibility = View.GONE
+            }
+        }
         holder.tv_count.text  = "${f?.count ?:""}"
         when(f?.dirType){
             0-> holder.image.visibility = View.INVISIBLE //TODO DIRECTORY
@@ -46,7 +52,9 @@ class AdapterListFiles : RecyclerView.Adapter<AdapterListFiles.VH>() {
         }
         holder.itemView.setOnClickListener {
             onClick?.OnItemClickListener(it, position)
+            holder.containerCard.isChecked = checkNotNull(f?.isSelected?.not())
         }
+        Log.e("TAG", "onBindViewHolder: date created: ${f?.dateCreated}")
     }
 
     override fun getItemCount(): Int = items.size
@@ -56,5 +64,6 @@ class AdapterListFiles : RecyclerView.Adapter<AdapterListFiles.VH>() {
         val title = _binding.tvNameFile
         val image = _binding.imgvIconFiles
         val tv_count = _binding.tvCountFiles
+        val containerCard = _binding.root
     }
 }

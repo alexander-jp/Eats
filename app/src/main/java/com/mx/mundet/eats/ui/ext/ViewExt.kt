@@ -1,21 +1,31 @@
 package com.mx.mundet.eats.ui.ext
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.Matrix
+import android.net.Uri
+import android.os.Build
+import android.provider.MediaStore
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.text.style.UnderlineSpan
+import android.transition.Explode
+import android.transition.Slide
+import android.transition.Transition
 import android.util.TypedValue
+import android.view.Gravity
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.EditText
 import android.widget.Toast
 import androidx.annotation.AttrRes
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityOptionsCompat
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
@@ -24,6 +34,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.google.android.material.snackbar.Snackbar
 import com.mx.mundet.eats.R
+import com.mx.mundet.eats.ui.mvp.fileChooser.ImageListActivity
 import java.util.concurrent.atomic.AtomicBoolean
 
 /**
@@ -95,6 +106,16 @@ fun <T> Fragment.changeActivity(clazz: Class<T>) {
 
 }
 
+fun <T> AppCompatActivity.changeActivityAnimationSlideBottomExplode(clazz: Class<T>) {
+    val intent = Intent(this, clazz)
+    val transition : Transition = Explode()
+    transition.duration = 500
+    window?.enterTransition = transition
+    window?.reenterTransition = transition
+    window?.returnTransition = transition
+    startActivity(intent, ActivityOptionsCompat.makeSceneTransitionAnimation(this).toBundle())
+}
+
 fun <T> singleLiveData(): MutableLiveData<T> {
     return MutableLiveData<T>().apply {
         value = null
@@ -161,5 +182,17 @@ fun <T> Fragment.addDropdownAdapter (items : List<T>, view : EditText?, adapter 
     val adapters = ArrayAdapter(requireContext(), R.layout.item_list_dropdown, items)
     (view as? AutoCompleteTextView)?.setAdapter(adapters)
     adapter.invoke()
+}
+
+fun Fragment.uriToFilePath(uri : Uri) : String{
+    var path : String?=null
+    val cursor = activity?.contentResolver?.query(uri, null,null,null, null)
+    cursor?.use {
+        while (cursor.moveToNext()){
+            path = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA))
+        }
+        cursor.close()
+    }
+    return path!!
 }
 

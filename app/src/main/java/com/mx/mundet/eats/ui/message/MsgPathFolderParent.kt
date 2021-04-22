@@ -5,4 +5,5 @@ package com.mx.mundet.eats.ui.message
  * @author Alexander Juárez
  */
 
-data class MsgPathFolderParent (val pathParent : String)
+data class MsgPathFolderParent (val pathParent : String, val title: String)
+data class MsgPathImage(val path : String)

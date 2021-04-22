@@ -69,10 +69,10 @@ class CameraActivity : BaseActivity() {
     }
 
     override fun onBackPressed() {
-        when(supportFragmentManager.findFragmentById(R.id.nav_host_fragment_camera)?.findNavController()?.currentDestination?.id){
-            R.id.fragmentCamera-> finish()
-            R.id.fragmentImage-> supportFragmentManager.findFragmentById(R.id.nav_host_fragment_camera)?.findNavController()?.navigateUp()
-        }
+//        when(supportFragmentManager.findFragmentById(R.id.nav_host_fragment_camera)?.findNavController()?.currentDestination?.id){
+//            R.id.fragmentCamera-> finish()
+//            R.id.fragmentImage-> supportFragmentManager.findFragmentById(R.id.nav_host_fragment_camera)?.findNavController()?.navigateUp()
+//        }
     }
 
     companion object {

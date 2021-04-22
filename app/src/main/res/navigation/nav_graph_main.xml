@@ -11,11 +11,11 @@
         android:label="FragmentCamera"
         tools:layout="@layout/fragment_new_camera" />
 
-    <fragment
-        android:id="@+id/fragmentImage"
-        android:name="com.mx.mundet.eats.ui.mvp.camera.ImageFragment"
-        android:label="FragmentImage"
-        tools:layout="@layout/fragment_show_image" />
+<!--    <fragment-->
+<!--        android:id="@+id/fragmentImage"-->
+<!--        android:name="com.mx.mundet.eats.ui.mvp.camera.ImageActivity"-->
+<!--        android:label="FragmentImage"-->
+<!--        tools:layout="@layout/activity_show_image" />-->
 
     <fragment
         android:id="@+id/nav_home"
@@ -52,15 +52,15 @@
         android:name="com.mx.mundet.eats.ui.mvp.registerUser.RegisterUserActivity"
         android:label="RegisterUserActivity" />
 
-    <action
-        android:id="@+id/action_global_fragmentImage"
-        app:launchSingleTop="true"
-        app:enterAnim="@android:anim/fade_in"
-        app:exitAnim="@android:anim/fade_out"
-        app:popEnterAnim="@android:anim/fade_in"
-        app:popExitAnim="@android:anim/fade_out"
-        app:destination="@id/fragmentImage"
-        />
+<!--    <action-->
+<!--        android:id="@+id/action_global_fragmentImage"-->
+<!--        app:launchSingleTop="true"-->
+<!--        app:enterAnim="@android:anim/fade_in"-->
+<!--        app:exitAnim="@android:anim/fade_out"-->
+<!--        app:popEnterAnim="@android:anim/fade_in"-->
+<!--        app:popExitAnim="@android:anim/fade_out"-->
+<!--        app:destination="@id/fragmentImage"-->
+<!--        />-->
 
     <action
         android:id="@+id/action_global_fragmentCamera"
@@ -105,6 +105,11 @@
         app:launchSingleTop="true"
         app:destination="@id/nav_recent"/>
 
+    <activity
+        android:id="@+id/imageListActivity"
+        android:name="com.mx.mundet.eats.ui.mvp.fileChooser.ImageListActivity"
+        android:label="activity_image_list"
+        tools:layout="@layout/activity_image_list" />
 
 
 </navigation>

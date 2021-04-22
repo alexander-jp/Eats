@@ -13,6 +13,10 @@ import androidx.navigation.fragment.findNavController
 import com.mx.mundet.eats.R
 import com.mx.mundet.eats.databinding.FragmentNewCameraBinding
 import com.mx.mundet.eats.ui.base.BaseFragment
+import com.mx.mundet.eats.ui.ext.changeActivity
+import com.mx.mundet.eats.ui.ext.uriToFilePath
+import com.mx.mundet.eats.ui.message.MsgPathImage
+import com.mx.mundet.eats.ui.mvp.fileChooser.FileChooserActivity
 import com.mx.mundet.eats.utils.MediaUtils
 import io.fotoapparat.Fotoapparat
 import io.fotoapparat.configuration.CameraConfiguration
@@ -20,6 +24,7 @@ import io.fotoapparat.parameter.Flash
 import io.fotoapparat.parameter.Resolution
 import io.fotoapparat.selector.back
 import io.fotoapparat.selector.front
+import org.greenrobot.eventbus.EventBus
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
@@ -87,11 +92,13 @@ class CameraFragment : BaseFragment(R.layout.fragment_new_camera) {
             val newFile = createFile()
             fotoApp?.takePicture()?.saveToFile(newFile)?.whenAvailable {
 
-                val bm = MediaUtils.bitMaptoBase64(requireContext(), newFile.toUri())
+                //val bm = MediaUtils.bitMaptoBase64(requireContext(), newFile.toUri())
                 //addAlertFragment(DialogCameraImage.newInstance(newFile.path), DialogCameraImage.TAG!!)
                 Log.e(TAG, "initListeners: ${newFile.path}")
-                val bundle = bundleOf("path" to bm)
-                findNavController().navigate(R.id.action_global_fragmentImage, bundle)
+                //val bundle = bundleOf("path" to newFile.path)
+                EventBus.getDefault().postSticky(MsgPathImage(path = newFile.path))
+                changeActivity(ImageActivity::class.java)
+                //findNavController().navigate(R.id.action_global_fragmentImage, bundle)
             }
         }
         _binding.btGroupFlash.addOnButtonCheckedListener { group, checkedId, isChecked ->
@@ -111,10 +118,11 @@ class CameraFragment : BaseFragment(R.layout.fragment_new_camera) {
             //findNavController().popBackStack()
         }
         _binding.btPickImageGallery.setOnClickListener {
-            val intent = Intent()
-            intent.type = "image/*"
-            intent.action = Intent.ACTION_GET_CONTENT
-            startActivityForResult(Intent.createChooser(intent, "Selecciona una imagen"), CODE_PICK_IMAGE)
+            changeActivity(FileChooserActivity::class.java)
+//            val intent = Intent()
+//            intent.type = "image/*"
+//            intent.action = Intent.ACTION_GET_CONTENT
+//            startActivityForResult(Intent.createChooser(intent, "Selecciona una imagen"), CODE_PICK_IMAGE)
         }
         _binding.btnSwitchCamera.setOnClickListener {
             if (isFrontal) {
@@ -138,14 +146,16 @@ class CameraFragment : BaseFragment(R.layout.fragment_new_camera) {
         when(requestCode){
             CODE_PICK_IMAGE -> {
                 if (data?.data != null) {
-                    nameFile = data.data?.path
-                    val imageUri = data.data
-                    val bm = MediaUtils.bitMaptoBase64(requireContext(), imageUri)
+                    //nameFile = data.data?.path
+                    //val imageUri = data.data
+                    //val bm = MediaUtils.bitMaptoBase64(requireContext(), imageUri)
 //                    val exif = ExifInterface(data.data?.path)
 //                    exif.getAttribute(ExifInterface.TAG_ORIENTATION)
 //                    Log.e(TAG, "orientation image take: ${exif.getAttribute(ExifInterface.TAG_ORIENTATION)}")
-                    val bundle = bundleOf("path" to bm)
-                    findNavController().navigate(R.id.action_global_fragmentImage, bundle)
+                    //val bundle = bundleOf("path" to bm)
+                    //findNavController().navigate(R.id.action_global_fragmentImage, bundle)
+                    EventBus.getDefault().postSticky(MsgPathImage(path = uriToFilePath(checkNotNull(data.data))))
+                    changeActivity(ImageActivity::class.java)
                 }
             }
         }

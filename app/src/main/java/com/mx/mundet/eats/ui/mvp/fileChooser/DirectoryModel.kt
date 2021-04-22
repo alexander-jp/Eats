@@ -12,4 +12,6 @@ data class DirectoryModel (
 ){
     var icon : String?=null
     var count : Int?=null
+    var dateCreated : Long?=null
+    var isSelected : Boolean = false
 }

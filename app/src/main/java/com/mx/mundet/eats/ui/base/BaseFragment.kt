@@ -8,6 +8,7 @@ import android.view.Gravity
 import android.view.ViewGroup
 import android.widget.RelativeLayout
 import androidx.annotation.LayoutRes
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.android.material.appbar.MaterialToolbar
 import com.mx.mundet.eats.R
@@ -35,7 +36,7 @@ abstract class BaseFragment : Fragment {
     }
 
     fun setTitleToobar(title: String) {
-        (activity as MainActivity).supportActionBar?.title = title
+        (activity as AppCompatActivity).supportActionBar?.title = title
     }
 
 
