@@ -11,13 +11,9 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:elevation="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
         app:popupTheme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"
         app:title="Agregar personas"
+        app:navigationIconTint="@color/white"
         app:titleTextColor="@color/white" />
 
     <androidx.core.widget.NestedScrollView

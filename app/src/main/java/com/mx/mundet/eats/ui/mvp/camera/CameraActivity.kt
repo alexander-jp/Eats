@@ -1,9 +1,11 @@
 package com.mx.mundet.eats.ui.mvp.camera
 
 import android.Manifest
+import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.WindowManager
 import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
@@ -19,9 +21,25 @@ class CameraActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_camera)
+
+        val orientation = intent.extras?.getInt("orientation")
+        if(requestedOrientation == ActivityInfo.SCREEN_ORIENTATION_PORTRAIT){
+            Log.d("Orientation","was portrait")
+        }else{
+            Log.d("Orientation","was landscape")
+        }
+        if(orientation == ORIENTATION_PORTRAIT){
+            requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+
+        }
+        else if(orientation == ORIENTATION_LANDSCAPE){
+            requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+            configChanged = true
+        }
+
         window?.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
-        supportActionBar?.show()
+        setContentView(R.layout.activity_camera)
+        supportActionBar?.hide()
         checkPermissions()
     }
 
@@ -69,10 +87,8 @@ class CameraActivity : BaseActivity() {
     }
 
     override fun onBackPressed() {
-//        when(supportFragmentManager.findFragmentById(R.id.nav_host_fragment_camera)?.findNavController()?.currentDestination?.id){
-//            R.id.fragmentCamera-> finish()
-//            R.id.fragmentImage-> supportFragmentManager.findFragmentById(R.id.nav_host_fragment_camera)?.findNavController()?.navigateUp()
-//        }
+        finish()
+        super.onBackPressed()
     }
 
     companion object {
@@ -84,8 +100,12 @@ class CameraActivity : BaseActivity() {
         @JvmStatic
         val TAG = CameraActivity::class.simpleName
 
+        private var configChanged = false
+
         @JvmStatic
         private val RC_PERMISOS = 203
         val EXTRA_NAME_FILE = "nameFile"
+        val ORIENTATION_PORTRAIT = 0
+        val ORIENTATION_LANDSCAPE = 1
     }
 }

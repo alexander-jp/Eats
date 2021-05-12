@@ -1,12 +1,8 @@
 package com.mx.mundet.eats.ui.ext
 
-import android.annotation.SuppressLint
 import android.content.Intent
-import android.graphics.Bitmap
 import android.graphics.Color
-import android.graphics.Matrix
 import android.net.Uri
-import android.os.Build
 import android.provider.MediaStore
 import android.text.Spannable
 import android.text.SpannableString
@@ -23,7 +19,6 @@ import android.widget.AutoCompleteTextView
 import android.widget.EditText
 import android.widget.Toast
 import androidx.annotation.AttrRes
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityOptionsCompat
 import androidx.fragment.app.DialogFragment
@@ -34,7 +29,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.google.android.material.snackbar.Snackbar
 import com.mx.mundet.eats.R
-import com.mx.mundet.eats.ui.mvp.fileChooser.ImageListActivity
 import java.util.concurrent.atomic.AtomicBoolean
 
 /**
@@ -108,11 +102,14 @@ fun <T> Fragment.changeActivity(clazz: Class<T>) {
 
 fun <T> AppCompatActivity.changeActivityAnimationSlideBottomExplode(clazz: Class<T>) {
     val intent = Intent(this, clazz)
-    val transition : Transition = Explode()
-    transition.duration = 500
-    window?.enterTransition = transition
-    window?.reenterTransition = transition
-    window?.returnTransition = transition
+    val explode : Transition = Explode()
+    val slide : Transition = Slide(Gravity.TOP)
+//    explode.duration = 500
+//    slide.duration = 800
+//    window?.exitTransition = slide
+//    window?.enterTransition = explode
+    window?.reenterTransition = explode
+    window?.returnTransition = explode
     startActivity(intent, ActivityOptionsCompat.makeSceneTransitionAnimation(this).toBundle())
 }
 

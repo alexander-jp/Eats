@@ -1,13 +1,20 @@
 package com.mx.mundet.eats.ui.mvp.registerUser
 
+import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.Camera
+import android.graphics.PorterDuff
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.appcompat.widget.AppCompatImageButton
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import coil.clear
 import coil.load
 import coil.transform.CircleCropTransformation
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.mx.mundet.eats.App
 import com.mx.mundet.eats.R
 import com.mx.mundet.eats.bd.Entity.PersonasEntity
@@ -24,11 +31,13 @@ import com.mx.mundet.eats.ui.message.MsgUserDataRefresh
 import com.mx.mundet.eats.ui.model.MetodoPagoModel
 import com.mx.mundet.eats.ui.model.RegisterUserModel
 import com.mx.mundet.eats.ui.mvp.camera.CameraActivity
+import com.mx.mundet.eats.ui.mvp.fileChooser.FileChooserActivity
 import com.mx.mundet.eats.utils.InputUtils
 import com.mx.mundet.eats.utils.InputUtils.validate
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
+import java.io.File
 import javax.inject.Inject
 
 class RegisterUserActivity : BaseActivity(), RegisterUserContract.View {
@@ -93,7 +102,8 @@ class RegisterUserActivity : BaseActivity(), RegisterUserContract.View {
     private fun initListeners(){
 
         _binding.fabAddImageUser.setOnClickListener {
-            changeActivity(CameraActivity::class.java)
+            //changeActivity(CameraActivity::class.java)
+            showBottomSheetDialog()
         }
 
         _binding.toolbarAddUser.setNavigationOnClickListener {
@@ -117,7 +127,7 @@ class RegisterUserActivity : BaseActivity(), RegisterUserContract.View {
 
         _binding.txtInputLayoutDate.setEndIconOnClickListener { showDatePicker(View(this)) }
 
-        _binding.txtInputLayoutTime.setEndIconOnClickListener {showDatePicker(View(this)) }
+        _binding.txtInputLayoutTime.setEndIconOnClickListener {showTimePicker(View(this)) }
     }
 
     fun showDatePicker(view: View){
@@ -141,6 +151,37 @@ class RegisterUserActivity : BaseActivity(), RegisterUserContract.View {
         addAlertFragment(timerAlert, DialogMaterialTimer.TAG!!)
     }
 
+    @SuppressLint("InflateParams")
+    private fun showBottomSheetDialog(){
+        val sheet = BottomSheetDialog(this)
+        val view = layoutInflater.inflate(R.layout.nav_sheet_images, null)
+        sheet.setContentView(view)
+        val btnTakePhoto = view.findViewById<AppCompatImageButton>(R.id.btnTakePhoto)
+        val btnPickImage = view.findViewById<AppCompatImageButton>(R.id.btnPickImage)
+        btnTakePhoto.setOnClickListener {
+            takePhotoCamera()
+            sheet.dismiss()
+        }
+        btnPickImage.setOnClickListener {
+            pickPhotoGallery()
+            sheet.dismiss()
+        }
+        sheet.dismissWithAnimation = true
+        sheet.show()
+    }
+
+    private fun takePhotoCamera(){
+        val i = Intent(this, CameraActivity::class.java)
+        i.putExtra(CameraActivity.EXTRA_NAME_FILE, "")
+        startActivityForResult(i, CODE_REQUEST_TAKE_PHOTO)
+    }
+
+    private fun pickPhotoGallery(){
+        val i = Intent(this, FileChooserActivity::class.java)
+        i.putExtra(CameraActivity.EXTRA_NAME_FILE, "")
+        startActivityForResult(i, CODE_REQUEST_PICK_PHOTO)
+    }
+
     override fun showError(error: Throwable) {
         showSnackBar(_binding.root, error.message)
     }
@@ -149,6 +190,20 @@ class RegisterUserActivity : BaseActivity(), RegisterUserContract.View {
         EventBus.getDefault().postSticky(MsgUserDataRefresh())
         showDialogProgress(false)
         showSnackBar(_binding.root, "Se ha registrado correctamente")
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        Log.e(TAG, "onActivityResult: resultCode $resultCode")
+        when(requestCode){
+            CODE_REQUEST_PICK_PHOTO -> {
+                Log.e(TAG, "onActivityResult PICK: ${data?.data?.path}")
+            }
+            CODE_REQUEST_TAKE_PHOTO -> {
+                    Log.e(TAG, "onActivityResult: TAKE ${data?.data?.path}")
+            }
+            else-> Log.e(TAG, "onActivityResult: else")
+        }
+        super.onActivityResult(requestCode, resultCode, data)
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
@@ -163,6 +218,7 @@ class RegisterUserActivity : BaseActivity(), RegisterUserContract.View {
         EventBus.getDefault().unregister(this)
         super.onDestroy()
     }
+
 
 //    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
 //        menuInflater.inflate(R.menu.menu_item_add_user, menu)
@@ -191,6 +247,9 @@ class RegisterUserActivity : BaseActivity(), RegisterUserContract.View {
 
          @JvmStatic
          val CODE_REQUEST_TAKE_PHOTO = 4
+
+         @JvmStatic
+         val CODE_REQUEST_PICK_PHOTO = 5
      }
 
 }

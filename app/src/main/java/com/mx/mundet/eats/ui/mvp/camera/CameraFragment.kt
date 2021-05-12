@@ -14,6 +14,7 @@ import com.mx.mundet.eats.R
 import com.mx.mundet.eats.databinding.FragmentNewCameraBinding
 import com.mx.mundet.eats.ui.base.BaseFragment
 import com.mx.mundet.eats.ui.ext.changeActivity
+import com.mx.mundet.eats.ui.ext.changeActivityFinish
 import com.mx.mundet.eats.ui.ext.uriToFilePath
 import com.mx.mundet.eats.ui.message.MsgPathImage
 import com.mx.mundet.eats.ui.mvp.fileChooser.FileChooserActivity
@@ -22,8 +23,7 @@ import io.fotoapparat.Fotoapparat
 import io.fotoapparat.configuration.CameraConfiguration
 import io.fotoapparat.parameter.Flash
 import io.fotoapparat.parameter.Resolution
-import io.fotoapparat.selector.back
-import io.fotoapparat.selector.front
+import io.fotoapparat.selector.*
 import org.greenrobot.eventbus.EventBus
 import java.io.File
 import java.text.SimpleDateFormat
@@ -38,9 +38,8 @@ import java.util.*
 class CameraFragment : BaseFragment(R.layout.fragment_new_camera) {
 
     var nameFile: String? = null
-    var fotoApp: Fotoapparat? = null
-    var isFrontal: Boolean = false
-    var isFlashOn : Boolean = false
+    private var fotoApp: Fotoapparat? = null
+    private var isFrontal: Boolean = false
     private lateinit var _binding: FragmentNewCameraBinding
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -58,10 +57,11 @@ class CameraFragment : BaseFragment(R.layout.fragment_new_camera) {
             Fotoapparat(context = requireContext(),
                 view = _binding.camView,
                 cameraConfiguration = CameraConfiguration(
-//                    flashMode = firstAvailable(
-//                        off()
-//                    ),
-//                    focusMode = infinity(),
+                    flashMode = firstAvailable(
+                        off(),
+                        autoFlash(),
+                        torch()
+                    ),
                     pictureResolution = {
                         var res: Resolution? = null
                         for (r in this) {
@@ -81,8 +81,6 @@ class CameraFragment : BaseFragment(R.layout.fragment_new_camera) {
                 }
             )
         fotoApp?.start()
-        //_binding.toolbarCamera.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.black))
-
     }
 
 
@@ -90,40 +88,13 @@ class CameraFragment : BaseFragment(R.layout.fragment_new_camera) {
     private fun initListeners() {
         _binding.btTakePicture.setOnClickListener {
             val newFile = createFile()
-            fotoApp?.takePicture()?.saveToFile(newFile)?.whenAvailable {
 
-                //val bm = MediaUtils.bitMaptoBase64(requireContext(), newFile.toUri())
-                //addAlertFragment(DialogCameraImage.newInstance(newFile.path), DialogCameraImage.TAG!!)
-                Log.e(TAG, "initListeners: ${newFile.path}")
-                //val bundle = bundleOf("path" to newFile.path)
+            fotoApp?.takePicture()?.saveToFile(newFile)?.whenAvailable {
                 EventBus.getDefault().postSticky(MsgPathImage(path = newFile.path))
-                changeActivity(ImageActivity::class.java)
-                //findNavController().navigate(R.id.action_global_fragmentImage, bundle)
+                changeActivityFinish(ImageActivity::class.java)
             }
         }
-        _binding.btGroupFlash.addOnButtonCheckedListener { group, checkedId, isChecked ->
-            when(checkedId){
-                R.id.bt_flip_flash-> {
-                    if(isChecked){
-                        fotoApp?.updateConfiguration(CameraConfigurationCustom(Flash.On))
-                        _binding.btFlipFlash.icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_round_flash_on_24)
-                    } else {
-                        fotoApp?.updateConfiguration(CameraConfigurationCustom(Flash.On))
-                        _binding.btFlipFlash.icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_round_flash_off_24)
-                    }
-                }
-            }
-        }
-        _binding.btFlipFlash.setOnClickListener {
-            //findNavController().popBackStack()
-        }
-        _binding.btPickImageGallery.setOnClickListener {
-            changeActivity(FileChooserActivity::class.java)
-//            val intent = Intent()
-//            intent.type = "image/*"
-//            intent.action = Intent.ACTION_GET_CONTENT
-//            startActivityForResult(Intent.createChooser(intent, "Selecciona una imagen"), CODE_PICK_IMAGE)
-        }
+
         _binding.btnSwitchCamera.setOnClickListener {
             if (isFrontal) {
                 fotoApp?.switchTo(lensPosition = back(), CameraConfiguration())
@@ -139,23 +110,15 @@ class CameraFragment : BaseFragment(R.layout.fragment_new_camera) {
 
     private fun createFile(): File {
 
-        return File(requireActivity().getExternalFilesDir(null), nameFile ?: "pic" + SimpleDateFormat("yyMMddHHmmss").format(Date()) + ".jpg")
+        return File(requireActivity().getExternalFilesDir(null), nameFile ?: "IMG_" + SimpleDateFormat("yyMMddHHmmss").format(Date()) + ".jpg")
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         when(requestCode){
             CODE_PICK_IMAGE -> {
                 if (data?.data != null) {
-                    //nameFile = data.data?.path
-                    //val imageUri = data.data
-                    //val bm = MediaUtils.bitMaptoBase64(requireContext(), imageUri)
-//                    val exif = ExifInterface(data.data?.path)
-//                    exif.getAttribute(ExifInterface.TAG_ORIENTATION)
-//                    Log.e(TAG, "orientation image take: ${exif.getAttribute(ExifInterface.TAG_ORIENTATION)}")
-                    //val bundle = bundleOf("path" to bm)
-                    //findNavController().navigate(R.id.action_global_fragmentImage, bundle)
                     EventBus.getDefault().postSticky(MsgPathImage(path = uriToFilePath(checkNotNull(data.data))))
-                    changeActivity(ImageActivity::class.java)
+                    changeActivityFinish(ImageActivity::class.java)
                 }
             }
         }

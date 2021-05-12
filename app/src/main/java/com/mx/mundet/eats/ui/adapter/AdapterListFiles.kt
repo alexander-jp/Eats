@@ -27,6 +27,11 @@ class AdapterListFiles : RecyclerView.Adapter<AdapterListFiles.VH>() {
     var onClick : OnItemClickListener?=null
     var optionList : String?=null
 
+    fun addItem(d : DirectoryModel){
+        items.add(d)
+        notifyDataSetChanged()
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
         return VH(LayoutInflater.from(parent.context).inflate(R.layout.items_files_chooser, parent, false))
     }

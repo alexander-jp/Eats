@@ -6,6 +6,7 @@ import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.ActionMode
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mx.mundet.eats.App
 import com.mx.mundet.eats.R
@@ -56,6 +57,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home), HomeContract.View {
         initProgress(_binding.root)
         _binding.rvListHome.setHasFixedSize(true)
         _binding.rvListHome.layoutManager = LinearLayoutManager(requireContext())
+        _binding.rvListHome.itemAnimator = DefaultItemAnimator()
     }
 
     private fun initListener() {
@@ -110,6 +112,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home), HomeContract.View {
     override fun resultObtenerListaPersonas(response: List<PersonasEntity>) {
         adapter.lista.clear()
         adapter.lista.addAll(response)
+        adapter.notifyItemInserted(adapter.lista.size-1)
         _binding.rvListHome.adapter = adapter
         showProgress(false)
     }
