@@ -1,10 +1,13 @@
 package com.mx.mundet.eats.ui.mvp.home
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.ActionMode
+import androidx.core.os.HandlerCompat
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -46,6 +49,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home), HomeContract.View {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentHomeBinding.bind(view)
         EventBus.getDefault().register(this)
+        //setHasOptionsMenu(true)
 
         initSettings()
         initListener()
@@ -72,32 +76,37 @@ class HomeFragment : BaseFragment(R.layout.fragment_home), HomeContract.View {
         }
         adapter.longClick = object : OnItemClickListener {
             override fun OnItemClickListener(view: View, position: Int) {
-                //createActionMode()
+                createActionMode()
             }
         }
     }
 
 
     private fun createActionMode () : ActionMode {
-        return (activity as AppCompatActivity).startSupportActionMode(object : ActionMode.Callback{
+        return (activity as AppCompatActivity).startSupportActionMode(object : ActionMode.Callback {
             override fun onCreateActionMode(mode: ActionMode?, menu: Menu?): Boolean {
-                mode?.menuInflater?.inflate(R.menu.menu_item_action_mode_home, menu)
+                (activity as AppCompatActivity).supportActionBar?.hide()
+                (activity as AppCompatActivity).menuInflater.inflate(R.menu.menu_item_action_mode_home, menu)
                 return true
             }
 
-            override fun onPrepareActionMode(mode: ActionMode?, menu: Menu?): Boolean {
-               return false
-            }
+            override fun onPrepareActionMode(mode: ActionMode?, menu: Menu?): Boolean = false
 
             override fun onActionItemClicked(mode: ActionMode?, item: MenuItem?): Boolean {
                 when(item?.itemId){
-                    R.id.delete_item_home-> showToast("Delete all")
-                    R.id.update_item_home-> showToast("Update file")
+                    R.id.delete_item_home -> showToast("Delete all")
+                    R.id.update_item_home -> showToast("Update file")
                 }
                return true
             }
 
+            @SuppressLint("RestrictedApi")
             override fun onDestroyActionMode(mode: ActionMode?) {
+                Handler().postDelayed({
+                    if(checkNotNull(mode?.menu?.hasVisibleItems())){
+                        (activity as AppCompatActivity).supportActionBar?.show()
+                    }
+                }, 300)
                 mode?.finish()
             }
 
@@ -128,12 +137,6 @@ class HomeFragment : BaseFragment(R.layout.fragment_home), HomeContract.View {
         EventBus.getDefault().unregister(this)
         super.onDestroyView()
     }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        MenuInflater(requireContext()).inflate(R.menu.menu_item_add_user, menu)
-        super.onCreateOptionsMenu(menu, inflater)
-    }
-
 
     companion object {
         @JvmStatic

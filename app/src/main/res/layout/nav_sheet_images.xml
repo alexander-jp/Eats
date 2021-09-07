@@ -81,6 +81,7 @@
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_marginVertical="10dp"
+                        android:tint="@color/white"
                         android:background="@drawable/bg_circular"
                         android:backgroundTint="@color/red_500"
                         app:srcCompat="@drawable/ic_round_photo_24" />

@@ -11,11 +11,15 @@
         android:label="FragmentCamera"
         tools:layout="@layout/fragment_new_camera" />
 
-<!--    <fragment-->
-<!--        android:id="@+id/fragmentImage"-->
-<!--        android:name="com.mx.mundet.eats.ui.mvp.camera.ImageActivity"-->
-<!--        android:label="FragmentImage"-->
-<!--        tools:layout="@layout/activity_show_image" />-->
+    <fragment
+        android:id="@+id/fragmentListFolder"
+        android:name="com.mx.mundet.eats.ui.mvp.fileChooser.ListFolderFragment"
+        android:label="List Folder"
+        tools:layout="@layout/fragment_list_folder" />
+
+    <action android:id="@+id/action_global_fragmentListFolder"
+        app:launchSingleTop="true"
+        app:destination="@id/fragmentListFolder"/>
 
     <fragment
         android:id="@+id/nav_home"
@@ -52,15 +56,15 @@
         android:name="com.mx.mundet.eats.ui.mvp.registerUser.RegisterUserActivity"
         android:label="RegisterUserActivity" />
 
-<!--    <action-->
-<!--        android:id="@+id/action_global_fragmentImage"-->
-<!--        app:launchSingleTop="true"-->
-<!--        app:enterAnim="@android:anim/fade_in"-->
-<!--        app:exitAnim="@android:anim/fade_out"-->
-<!--        app:popEnterAnim="@android:anim/fade_in"-->
-<!--        app:popExitAnim="@android:anim/fade_out"-->
-<!--        app:destination="@id/fragmentImage"-->
-<!--        />-->
+    <!--    <action-->
+    <!--        android:id="@+id/action_global_fragmentImage"-->
+    <!--        app:launchSingleTop="true"-->
+    <!--        app:enterAnim="@android:anim/fade_in"-->
+    <!--        app:exitAnim="@android:anim/fade_out"-->
+    <!--        app:popEnterAnim="@android:anim/fade_in"-->
+    <!--        app:popExitAnim="@android:anim/fade_out"-->
+    <!--        app:destination="@id/fragmentImage"-->
+    <!--        />-->
 
     <action
         android:id="@+id/action_global_fragmentCamera"
@@ -105,11 +109,34 @@
         app:launchSingleTop="true"
         app:destination="@id/nav_recent"/>
 
-    <activity
-        android:id="@+id/imageListActivity"
-        android:name="com.mx.mundet.eats.ui.mvp.fileChooser.ImageListActivity"
-        android:label="activity_image_list"
-        tools:layout="@layout/activity_image_list" />
+    <fragment
+        android:id="@+id/imageListFragment"
+        android:name="com.mx.mundet.eats.ui.mvp.fileChooser.ImageListFragment"
+        android:label="List Images"
+        tools:layout="@layout/fragment_image_list" />
+
+    <action
+        android:id="@+id/action_global_imageListFragment"
+        app:destination="@id/imageListFragment"
+        app:enterAnim="@anim/enter_activity"
+        app:exitAnim="@anim/exit_activity"
+        app:launchSingleTop="true"
+        app:popEnterAnim="@anim/enter_activity"
+        app:popExitAnim="@anim/exit_activity"/>
+
+    <fragment
+        android:id="@+id/imageFragment"
+        tools:layout="@layout/fragment_show_image"
+        android:name="com.mx.mundet.eats.ui.mvp.camera.ImageFragment"
+        android:label="ImageFragment" />
+
+    <action android:id="@+id/action_global_imageFragment"
+        app:destination="@id/imageFragment"
+        app:enterAnim="@anim/item_scale_enter"
+        app:exitAnim="@anim/exit_activity"
+        app:launchSingleTop="true"
+        app:popEnterAnim="@anim/exit_activity"
+        app:popExitAnim="@anim/exit_activity"/>
 
 
 </navigation>

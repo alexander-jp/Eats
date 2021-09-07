@@ -7,6 +7,8 @@ import com.mx.mundet.eats.bd.Entity.PersonasEntity
 import com.mx.mundet.eats.databinding.ActivityDetailUserBinding
 import com.mx.mundet.eats.ui.base.BaseActivity
 import com.mx.mundet.eats.ui.ext.showSnackBar
+import com.mx.mundet.eats.ui.ext.showToast
+import com.mx.mundet.eats.ui.ext.showToastSuccess
 import com.mx.mundet.eats.ui.message.MsgUserData
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -69,7 +71,10 @@ class DetailUserActivity : BaseActivity(), DetailUserContract.View {
 
     override fun resultGetPeople(response: PersonasEntity) {
         showProgress(false)
-        showSnackBar(_binding.root, "${response.nombre}")
+        showToastSuccess(_binding.root, "${response.nombre}", click = {
+           showToast("hiciste click por invoke")
+        })
+        //showSnackBar(_binding.root, "${response.nombre}")
     }
     override fun onDestroy() {
         EventBus.getDefault().unregister(this)

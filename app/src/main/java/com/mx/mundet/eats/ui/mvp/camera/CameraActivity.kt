@@ -19,6 +19,10 @@ import com.mx.mundet.eats.ui.base.BaseActivity
 
 class CameraActivity : BaseActivity() {
 
+    private val navControllers by lazy {
+        supportFragmentManager.findFragmentById(R.id.nav_host_fragment_camera)?.findNavController()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -83,12 +87,19 @@ class CameraActivity : BaseActivity() {
             null
         }
         val arg = bundleOf("nameFile" to nameFile)
-        supportFragmentManager.findFragmentById(R.id.nav_host_fragment_camera)?.findNavController()?.navigate(R.id.action_global_fragmentCamera, arg)
+        navControllers?.navigate(R.id.action_global_fragmentCamera, arg)
     }
 
     override fun onBackPressed() {
-        finish()
-        super.onBackPressed()
+        customBack()
+    }
+
+    private fun customBack(){
+        Log.e(TAG, "customBack ID ->: ${navControllers?.currentDestination?.id}")
+        when(navControllers?.currentDestination?.id){
+            R.id.fragmentCamera-> super.onBackPressed()
+            R.id.imageFragment-> navControllers?.navigateUp()
+        }
     }
 
     companion object {

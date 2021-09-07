@@ -42,6 +42,12 @@
     <string name="text_registarse">Registarse</string>
     <string name="text_what_account"><u>¿Ya tienes una cuenta?</u></string>
 
+    <string name="text_back_app">Atrás</string>
+
     <!-- text larges-->
     <string name="text_create_account_privacity">Al crear una cuenta, acepto los <b>Términos y condiciones</b> \n de App Barber Inc, y confirmo que leí y acepto los \n<b>Términos de uso</b> y las <u>Política de privacidad.</u></string>
+
+
+    <!-- Names Transitions-->
+    <string name="pick_image_transition">image_pick</string>
 </resources>

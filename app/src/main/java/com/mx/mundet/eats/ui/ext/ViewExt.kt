@@ -11,13 +11,11 @@ import android.text.style.UnderlineSpan
 import android.transition.Explode
 import android.transition.Slide
 import android.transition.Transition
+import android.util.Log
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
-import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
-import android.widget.EditText
-import android.widget.Toast
+import android.widget.*
 import androidx.annotation.AttrRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityOptionsCompat
@@ -27,7 +25,9 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.snackbar.SnackbarContentLayout
 import com.mx.mundet.eats.R
 import java.util.concurrent.atomic.AtomicBoolean
 
@@ -59,6 +59,25 @@ fun Fragment.showToast(msg: String) {
 fun AppCompatActivity.showSnackBar(view : View?, msg: String?) {
     view?.let {
         Snackbar.make(it, msg!!, Snackbar.LENGTH_SHORT).show()
+    }
+}
+
+fun AppCompatActivity.showToastSuccess(view : View?, msg: String?, click : (View) -> Unit) {
+    view?.let {
+        val v : View = layoutInflater.inflate(R.layout.message_sucess, null)
+        val btnHide = v.findViewById<MaterialButton>(R.id.btnClosedMessage)
+        val txtView = v.findViewById<TextView>(R.id.tvt_body_message)
+        txtView.setOnClickListener {
+            Log.e("tag", "MI ERROR")
+        }
+        btnHide.setOnClickListener {
+            Log.e("tag", "MI ERROR")
+            click.invoke(it)
+        }
+        val toast : Toast = Toast.makeText(this, msg, Toast.LENGTH_SHORT)
+        toast.view = v
+        toast.setMargin(0f, 0f)
+        toast.show()
     }
 }
 

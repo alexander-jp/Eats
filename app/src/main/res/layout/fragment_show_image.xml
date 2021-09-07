@@ -2,19 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    android:transitionName="@string/pick_image_transition"
     android:layout_height="match_parent"
     android:background="@color/black">
 
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/toolbar_show_image"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        app:navigationIcon="@drawable/ic_round_close_24" />
 
     <com.jsibbold.zoomage.ZoomageView
         android:id="@+id/img_image_account"
@@ -24,28 +15,28 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar_show_image"
+        app:layout_constraintTop_toTopOf="parent"
         app:zoomage_doubleTapToZoom="true"
         app:zoomage_restrictBounds="true"
         app:zoomage_translatable="true" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_next_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:contentDescription="@string/text_context_description"
         android:layout_marginHorizontal="30dp"
         android:layout_marginVertical="20dp"
+        android:contentDescription="@string/text_context_description"
         app:backgroundTint="@color/blue_500"
-        app:tint="@color/white"
-        android:id="@+id/fab_next_image"
-        app:rippleColor="@color/white"
-        app:srcCompat="@drawable/ic_round_next"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar_show_image"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        app:rippleColor="@color/white"
+        app:srcCompat="@drawable/ic_round_next"
+        app:tint="@color/white" />
 
 
 

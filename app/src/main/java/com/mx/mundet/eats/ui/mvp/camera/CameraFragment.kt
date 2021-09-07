@@ -1,30 +1,20 @@
 package com.mx.mundet.eats.ui.mvp.camera
 
-import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
-import androidx.core.net.toUri
 import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import com.mx.mundet.eats.R
 import com.mx.mundet.eats.databinding.FragmentNewCameraBinding
 import com.mx.mundet.eats.ui.base.BaseFragment
-import com.mx.mundet.eats.ui.ext.changeActivity
-import com.mx.mundet.eats.ui.ext.changeActivityFinish
-import com.mx.mundet.eats.ui.ext.uriToFilePath
-import com.mx.mundet.eats.ui.message.MsgPathImage
-import com.mx.mundet.eats.ui.mvp.fileChooser.FileChooserActivity
-import com.mx.mundet.eats.utils.MediaUtils
 import io.fotoapparat.Fotoapparat
 import io.fotoapparat.configuration.CameraConfiguration
-import io.fotoapparat.parameter.Flash
 import io.fotoapparat.parameter.Resolution
 import io.fotoapparat.selector.*
-import org.greenrobot.eventbus.EventBus
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
@@ -90,9 +80,13 @@ class CameraFragment : BaseFragment(R.layout.fragment_new_camera) {
             val newFile = createFile()
 
             fotoApp?.takePicture()?.saveToFile(newFile)?.whenAvailable {
-                EventBus.getDefault().postSticky(MsgPathImage(path = newFile.path))
-                changeActivityFinish(ImageActivity::class.java)
+                val arg = bundleOf("path" to newFile.path)
+                findNavController().navigate(R.id.action_global_imageFragment, arg)
             }
+        }
+
+        _binding.btnBackCamera.setOnClickListener {
+            activity?.finish()
         }
 
         _binding.btnSwitchCamera.setOnClickListener {
@@ -111,18 +105,6 @@ class CameraFragment : BaseFragment(R.layout.fragment_new_camera) {
     private fun createFile(): File {
 
         return File(requireActivity().getExternalFilesDir(null), nameFile ?: "IMG_" + SimpleDateFormat("yyMMddHHmmss").format(Date()) + ".jpg")
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        when(requestCode){
-            CODE_PICK_IMAGE -> {
-                if (data?.data != null) {
-                    EventBus.getDefault().postSticky(MsgPathImage(path = uriToFilePath(checkNotNull(data.data))))
-                    changeActivityFinish(ImageActivity::class.java)
-                }
-            }
-        }
-        super.onActivityResult(requestCode, resultCode, data)
     }
 
 
@@ -144,9 +126,6 @@ class CameraFragment : BaseFragment(R.layout.fragment_new_camera) {
 
         @JvmStatic
         val TAG = CameraFragment::class.simpleName
-
-        @JvmStatic
-        val CODE_PICK_IMAGE : Int = 1
 
     }
 }

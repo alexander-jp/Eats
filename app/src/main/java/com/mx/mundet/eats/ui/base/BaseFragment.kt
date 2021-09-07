@@ -1,7 +1,6 @@
 package com.mx.mundet.eats.ui.base
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.app.Dialog
 import android.content.Context
 import android.view.Gravity
@@ -10,10 +9,8 @@ import android.widget.RelativeLayout
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.google.android.material.appbar.MaterialToolbar
 import com.mx.mundet.eats.R
 import com.mx.mundet.eats.ui.ext.colorAttr
-import com.mx.mundet.eats.ui.mvp.main.MainActivity
 import com.mx.mundet.eats.utils.ViewGroupUtils
 import com.wang.avi.AVLoadingIndicatorView
 
@@ -35,8 +32,29 @@ abstract class BaseFragment : Fragment {
         initProgressDialog()
     }
 
-    fun setTitleToobar(title: String) {
-        (activity as AppCompatActivity).supportActionBar?.title = title
+//    override fun onCreate(savedInstanceState: Bundle?) {
+//        super.onCreate(savedInstanceState)
+//        sharedElementEnterTransition = MaterialContainerTransform().apply {
+//            val backgroundColor = MaterialColors.getColor(
+//                requireContext(),
+//                android.R.attr.colorBackground,
+//                "The attribute is not set in the current theme"
+//            )
+//            setAllContainerColors(backgroundColor)
+//            scrimColor = Color.TRANSPARENT
+//        }
+//        exitTransition = Hold()
+//        reenterTransition = null
+//    }
+
+//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+//        super.onViewCreated(view, savedInstanceState)
+//        postponeEnterTransition()
+//        view.doOnPreDraw { startPostponedEnterTransition() }
+//    }
+
+    fun setTitleToolbar(title: String?=null) {
+        (activity as AppCompatActivity).supportActionBar?.title = title ?:""
     }
 
 
@@ -51,11 +69,11 @@ abstract class BaseFragment : Fragment {
 
     fun showDialogProgress(status: Boolean) {
         if (status) {
-            if (!myProgress?.isShowing!!) {
+            if (!checkNotNull(myProgress?.isShowing)) {
                 myProgress?.show()
             }
         } else {
-            if (myProgress?.isShowing!!) {
+            if (checkNotNull(myProgress?.isShowing)) {
                 myProgress?.dismiss()
             }
         }
@@ -78,11 +96,11 @@ abstract class BaseFragment : Fragment {
 
     fun showProgress(show: Boolean) {
         if (show) {
-            if (!progress?.isShown!!) {
+            if (!checkNotNull(progress?.isShown)) {
                 progress?.show()
             }
         } else {
-            if (progress?.isShown!!) {
+            if (checkNotNull(progress?.isShown)) {
                 progress?.hide()
             }
         }

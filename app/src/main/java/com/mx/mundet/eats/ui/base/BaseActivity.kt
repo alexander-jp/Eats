@@ -39,11 +39,11 @@ open class BaseActivity : AppCompatActivity() {
 
     fun showDialogProgress(status: Boolean) {
         if (status) {
-            if (!myProgress?.isShowing!!) {
+            if (!checkNotNull(myProgress?.isShowing)) {
                 myProgress?.show()
             }
         } else {
-            if (myProgress?.isShowing!!) {
+            if (checkNotNull(myProgress?.isShowing)) {
                 myProgress?.dismiss()
             }
         }
@@ -65,11 +65,11 @@ open class BaseActivity : AppCompatActivity() {
 
     fun showProgress(show: Boolean) {
         if (show) {
-            if (!progress?.isShown!!) {
+            if (!checkNotNull(progress?.isShown)) {
                 progress?.show()
             }
         } else {
-            if (progress?.isShown!!) {
+            if (checkNotNull(progress?.isShown)) {
                 progress?.hide()
             }
         }

@@ -3,19 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:orientation="vertical"
     android:layout_height="match_parent"
-    tools:context=".ui.mvp.fileChooser.ImageListActivity">
+    android:orientation="vertical"
+    tools:context=".ui.mvp.fileChooser.ListFolderFragment">
 
-    <include
-        layout="@layout/toolbar" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_list_files_pick"
         android:layout_width="match_parent"
-        android:id="@+id/rv_list_images"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_height="match_parent" />
 
 </LinearLayout>

@@ -1,17 +1,14 @@
 package com.mx.mundet.eats.ui.mvp.registerUser
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Intent
-import android.graphics.Camera
-import android.graphics.PorterDuff
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.appcompat.widget.AppCompatImageButton
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import coil.clear
 import coil.load
 import coil.transform.CircleCropTransformation
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -24,14 +21,14 @@ import com.mx.mundet.eats.ui.dialog.DialogMaterialCalendar
 import com.mx.mundet.eats.ui.dialog.DialogMaterialTimer
 import com.mx.mundet.eats.ui.ext.addAlertFragment
 import com.mx.mundet.eats.ui.ext.addDropdownAdapter
-import com.mx.mundet.eats.ui.ext.changeActivity
 import com.mx.mundet.eats.ui.ext.showSnackBar
 import com.mx.mundet.eats.ui.message.MsgImageUser
 import com.mx.mundet.eats.ui.message.MsgUserDataRefresh
 import com.mx.mundet.eats.ui.model.MetodoPagoModel
 import com.mx.mundet.eats.ui.model.RegisterUserModel
 import com.mx.mundet.eats.ui.mvp.camera.CameraActivity
-import com.mx.mundet.eats.ui.mvp.fileChooser.FileChooserActivity
+import com.mx.mundet.eats.ui.mvp.fileChooser.ChooserMainActivity
+import com.mx.mundet.eats.ui.mvp.fileChooser.ListFolderFragment
 import com.mx.mundet.eats.utils.InputUtils
 import com.mx.mundet.eats.utils.InputUtils.validate
 import org.greenrobot.eventbus.EventBus
@@ -172,13 +169,11 @@ class RegisterUserActivity : BaseActivity(), RegisterUserContract.View {
 
     private fun takePhotoCamera(){
         val i = Intent(this, CameraActivity::class.java)
-        i.putExtra(CameraActivity.EXTRA_NAME_FILE, "")
         startActivityForResult(i, CODE_REQUEST_TAKE_PHOTO)
     }
 
     private fun pickPhotoGallery(){
-        val i = Intent(this, FileChooserActivity::class.java)
-        i.putExtra(CameraActivity.EXTRA_NAME_FILE, "")
+        val i = Intent(this, ChooserMainActivity::class.java)
         startActivityForResult(i, CODE_REQUEST_PICK_PHOTO)
     }
 
@@ -193,15 +188,20 @@ class RegisterUserActivity : BaseActivity(), RegisterUserContract.View {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        Log.e(TAG, "onActivityResult: resultCode $resultCode")
-        when(requestCode){
-            CODE_REQUEST_PICK_PHOTO -> {
-                Log.e(TAG, "onActivityResult PICK: ${data?.data?.path}")
+        if(resultCode ==Activity.RESULT_OK){
+            when(requestCode){
+                CODE_REQUEST_PICK_PHOTO -> {
+                    _binding.imgAccountUser.load(File(data?.data?.path)){
+                        transformations(CircleCropTransformation())
+                    }
+                }
+                CODE_REQUEST_TAKE_PHOTO -> {
+                    _binding.imgAccountUser.load(File(data?.data?.path)){
+                        transformations(CircleCropTransformation())
+                    }
+                }
+                else-> Log.e(TAG, "onActivityResult: else")
             }
-            CODE_REQUEST_TAKE_PHOTO -> {
-                    Log.e(TAG, "onActivityResult: TAKE ${data?.data?.path}")
-            }
-            else-> Log.e(TAG, "onActivityResult: else")
         }
         super.onActivityResult(requestCode, resultCode, data)
     }

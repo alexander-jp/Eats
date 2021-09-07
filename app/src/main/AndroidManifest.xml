@@ -22,8 +22,7 @@
         android:theme="@style/Theme.Eats"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".ui.mvp.fileChooser.ImageListActivity"></activity>
-        <activity android:name=".ui.mvp.fileChooser.FileChooserActivity" />
+
         <activity
             android:name=".ui.mvp.register.RegisterActivity"
             android:screenOrientation="portrait"
@@ -41,10 +40,12 @@
             android:name=".ui.mvp.registerUser.RegisterUserActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
+
         <activity
             android:name=".ui.mvp.login.LoginActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
+
         <activity android:name=".ui.mvp.camera.CameraActivity" />
         <activity
             android:name=".ui.mvp.detailUser.DetailUserActivity"
@@ -56,8 +57,9 @@
             android:name=".ui.mvp.main.MainActivity"
             android:screenOrientation="portrait" />
 
-        <activity android:name=".ui.mvp.camera.ImageActivity"
+        <activity android:name=".ui.mvp.fileChooser.ChooserMainActivity"
             android:screenOrientation="portrait"/>
+
     </application>
 
 </manifest>
